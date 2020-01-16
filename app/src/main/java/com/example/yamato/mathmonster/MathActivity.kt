@@ -189,7 +189,7 @@ class MathActivity : AppCompatActivity() {
                 2 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen2)
             }
         }
-        for(i in 1..num_b){
+        for(i in 1..10){
             undertile[i-1].setBackgroundResource(R.drawable.wakusen3)
         }
 
@@ -197,6 +197,96 @@ class MathActivity : AppCompatActivity() {
         when(hint_stage) {
             0 -> {
                 deleteTile()
+            }
+            1 -> {
+                uptile[9].setVisibility(View.VISIBLE)
+                for(i in 6..num_a){
+                    uptile[i-1].setVisibility(View.VISIBLE)
+                }
+                if(num_b == 5) undertile[9].setVisibility(View.VISIBLE)
+                else{
+                    for(i in 1..num_b){
+                        undertile[i-1].setVisibility(View.VISIBLE)
+                    }
+                }
+            }
+            2 -> {
+                if(userClickBtn == 1){
+                    if(num_b == 5){
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[9], "translationY", 30.0f)
+                        objectAnimator.duration = 500
+                        objectAnimator.repeatCount = 0
+                        objectAnimator.start()
+                    }else{
+                        for(i in 6..num_a){
+                            var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", -30.0f)
+                            objectAnimator2.duration = 500
+                            objectAnimator2.repeatCount = 0
+                            objectAnimator2.start()
+                        }
+                    }
+                    HintMinus2(1)
+                }else{
+                    settingTile()
+                    HintMinus2(2)
+                }
+            }
+            3 -> {
+                if(num_b == 5) {
+                    uptile[9].setTranslationY(30.0f)
+                    uptile[9].setVisibility(View.VISIBLE)
+                    undertile[9].setVisibility(View.VISIBLE)
+                }
+                else {
+                    for(i in 6..num_a){
+                        uptile[i-1].setTranslationY(-30.0f)
+                        uptile[i-1].setVisibility(View.VISIBLE)
+                        undertile[i-6].setVisibility(View.VISIBLE)
+                    }
+                }
+            }
+            4 -> {
+                if(userClickBtn == 1){
+                    if(num_b == 5){
+                        undertile[9].startAnimation(alphaFadeout)
+                        undertile[9].setVisibility(View.INVISIBLE)
+
+                        var objectAnimator3 = ObjectAnimator.ofFloat(uptile[9], "translationY", 302.5f)
+                        objectAnimator3.duration = 500
+                        objectAnimator3.repeatCount = 0
+                        objectAnimator3.start()
+
+                        Handler().postDelayed(Runnable {
+                            uptile[9].startAnimation(alphaFadeout)
+                            uptile[9].setVisibility(View.INVISIBLE)
+                        },1500)
+                    }else{
+                        for(i in 1..num_b){
+                            undertile[i-1].startAnimation(alphaFadeout)
+                            undertile[i-1].setVisibility(View.INVISIBLE)
+                        }
+                        for(i in 6..num_a){
+                            var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 452.5f)
+                            objectAnimator4.duration = 500
+                            objectAnimator4.repeatCount = 0
+                            objectAnimator4.start()
+
+                            Handler().postDelayed(Runnable {
+                                uptile[i-1].startAnimation(alphaFadeout)
+                                uptile[i-1].setVisibility(View.INVISIBLE)
+                            },1500)
+                        }
+                    }
+                    HintMinus2(1)
+                }
+                else{
+                    settingTile()
+                    button11.setEnabled(true)
+                    HintMinus2(2)
+                }
+            }
+            5 -> {
+                button11.setEnabled(false)
             }
         }
     }
