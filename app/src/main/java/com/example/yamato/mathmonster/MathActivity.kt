@@ -41,7 +41,6 @@ class MathActivity : AppCompatActivity() {
         var false_C = intent.getIntExtra("monsterAct_false", 0)
         val intent = Intent(this@MathActivity, BreakActivity::class.java)
         val back = Intent(this@MathActivity, LevelActivity::class.java)
-        val mix = Intent(this@MathActivity, BreakActivity::class.java)
         back.putExtra("backMath", m_sel)
         back.putExtra("backLev", lev)
         intent.putExtra("NUMber", m_sel)
@@ -53,7 +52,7 @@ class MathActivity : AppCompatActivity() {
         if(m_sel == 2) Number_plus.text = "－"
 
         Levels(lev, level_cnt)
-        JudgmentQ(lev, m_sel, level_cnt)
+        JudgmentQ(lev, m_sel)
 
         backBTN.setOnClickListener {
             startActivity(back)
@@ -67,7 +66,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 1
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent, level_cnt, mix)
+                ClickBtn(lev, m_sel, intent)
             }
         }
         button2.setOnClickListener {
@@ -75,7 +74,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 2
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent, level_cnt, mix)
+                ClickBtn(lev, m_sel, intent)
             }
         }
         button3.setOnClickListener {
@@ -83,7 +82,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 3
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent, level_cnt, mix)
+                ClickBtn(lev, m_sel, intent)
             }
         }
         button4.setOnClickListener {
@@ -91,7 +90,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 4
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent, level_cnt, mix)
+                ClickBtn(lev, m_sel, intent)
             }
         }
         button5.setOnClickListener {
@@ -99,7 +98,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 5
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent, level_cnt, mix)
+                ClickBtn(lev, m_sel, intent)
             }
         }
         button6.setOnClickListener {
@@ -107,7 +106,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 6
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent, level_cnt, mix)
+                ClickBtn(lev, m_sel, intent)
             }
         }
         button7.setOnClickListener {
@@ -115,7 +114,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 7
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent, level_cnt, mix)
+                ClickBtn(lev, m_sel, intent)
             }
         }
         button8.setOnClickListener {
@@ -123,7 +122,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 8
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent, level_cnt, mix)
+                ClickBtn(lev, m_sel, intent)
             }
         }
         button9.setOnClickListener {
@@ -131,7 +130,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 9
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent, level_cnt, mix)
+                ClickBtn(lev, m_sel, intent)
             }
         }
         button0.setOnClickListener {
@@ -139,7 +138,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 0
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent, level_cnt, mix)
+                ClickBtn(lev, m_sel, intent)
             }
         }
 
@@ -178,14 +177,14 @@ class MathActivity : AppCompatActivity() {
         }
     }
 
-    private fun JudgmentQ(Level:Int, Math:Int, level_cnt:Int){
+    private fun JudgmentQ(Level:Int, Math:Int){
         when(Math){
-            1 -> PlusQ(Level, level_cnt)
-            2 -> MinusQ(Level, level_cnt)
+            1 -> PlusQ(Level)
+            2 -> MinusQ(Level)
         }
     }
 
-    private fun PlusQ(Level: Int, level_cnt: Int){
+    private fun PlusQ(Level: Int){
         deleteTile()
         when(Level){
             1 -> CreatePlus1()
@@ -193,11 +192,11 @@ class MathActivity : AppCompatActivity() {
             3 -> CreatePlus3()
             4 -> CreatePlus4()
             5 -> CreatePlus5()
-            6 -> CreatePlusMix(level_cnt)
+            6 -> CreatePlusMix()
         }
     }
 
-    private fun MinusQ(Level: Int, level_cnt: Int){
+    private fun MinusQ(Level: Int){
         deleteTile()
         when(Level){
             1 -> CreateMinus1()
@@ -205,7 +204,7 @@ class MathActivity : AppCompatActivity() {
             3 -> CreateMinus3()
             4 -> CreateMinus4()
             5 -> CreateMinus5()
-            6 -> CreateMinusMix(level_cnt)
+            6 -> CreateMinusMix()
         }
     }
 
@@ -333,7 +332,7 @@ class MathActivity : AppCompatActivity() {
         SendNumPlus()
     }
 
-    private fun CreatePlusMix(level_cnt: Int){  //レベルミックス
+    private fun CreatePlusMix(){  //レベルミックス
         var offer_que = (1..5).random()
         when(offer_que){
             1 -> CreatePlus1()
@@ -446,7 +445,7 @@ class MathActivity : AppCompatActivity() {
         SendNumMinus()
     }
 
-    private fun CreateMinusMix(level_cnt: Int){ //レベルミックス
+    private fun CreateMinusMix(){ //レベルミックス
         var offer_que = (1..5).random()
         when(offer_que){
             1 -> CreateMinus1()
@@ -619,7 +618,7 @@ class MathActivity : AppCompatActivity() {
 
     /*****     数字ボタンを押したときの処理     *****/
 
-    private fun ClickBtn(lev:Int, m_sel:Int, intent: Intent, level_cnt: Int, mix:Intent){
+    private fun ClickBtn(lev:Int, m_sel:Int, intent: Intent){
         if(answer == total){
             suc_cnt++
             when(suc_cnt){
@@ -639,7 +638,7 @@ class MathActivity : AppCompatActivity() {
             if(suc_cnt < 6) {
                 Handler().postDelayed(Runnable {
                     Number_total.text = null
-                    JudgmentQ(lev, m_sel, level_cnt)
+                    JudgmentQ(lev, m_sel)
                     on_off_click = 1
                 }, 800)
             }
