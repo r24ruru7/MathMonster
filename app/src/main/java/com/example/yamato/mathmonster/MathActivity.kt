@@ -154,14 +154,318 @@ class MathActivity : AppCompatActivity() {
         }
     }
 
-    private fun incdecStage(receiveBtn:Int){
+
+
+
+    /*****     レベル判別とそれに応じたテキストの処理     *****/
+
+    private fun Levels(select:Int, level_cnt: Int){
+        when (select) {
+            1 -> lev_Btn.text = "レベル1"
+            2 -> lev_Btn.text = "レベル2"
+            3 -> lev_Btn.text = "レベル3"
+            4 -> lev_Btn.text = "レベル4"
+            5 -> lev_Btn.text = "レベル5"
+            6 -> {
+                when(level_cnt){
+                    1 -> lev_Btn.text = "レベル1"
+                    2 -> lev_Btn.text = "レベル2"
+                    3 -> lev_Btn.text = "レベル3"
+                    4 -> lev_Btn.text = "レベル4"
+                    5 -> lev_Btn.text = "レベル5"
+                }
+            }
+        }
+    }
+
+    private fun JudgmentQ(Level:Int, Math:Int, level_cnt:Int){
+        when(Math){
+            1 -> PlusQ(Level, level_cnt)
+            2 -> MinusQ(Level, level_cnt)
+        }
+    }
+
+    private fun PlusQ(Level: Int, level_cnt: Int){
+        deleteTile()
+        when(Level){
+            1 -> CreatePlus1()
+            2 -> CreatePlus2()
+            3 -> CreatePlus3()
+            4 -> CreatePlus4()
+            5 -> CreatePlus5()
+            6 -> CreatePlusMix(level_cnt)
+        }
+    }
+
+    private fun MinusQ(Level: Int, level_cnt: Int){
+        deleteTile()
+        when(Level){
+            1 -> CreateMinus1()
+            2 -> CreateMinus2()
+            3 -> CreateMinus3()
+            4 -> CreateMinus4()
+            5 -> CreateMinus5()
+            6 -> CreateMinusMix(level_cnt)
+        }
+    }
+
+
+    /*****     テキスト表示処理     *****/
+
+    private fun SendNumPlus(){
+        total = num_a + num_b
+        repeat_a = num_a
+        repeat_b = num_b
+        Edit_text()
+    }
+
+    private fun SendNumMinus(){
+        total = num_a - num_b
+        repeat_a = num_a
+        repeat_b = num_b
+        Edit_text()
+    }
+
+    private fun Edit_text(){
+        Number_a.text = num_a.toString()
+        Number_b.text = num_b.toString()
+    }
+
+
+    /*****     足し算の問題表示     *****/
+
+    private fun CreatePlus1(){  //レベル1
+        resetHint()
+        now_level = 1
+        do {
+            num_a = (1..4).random()
+            num_b = (1..4).random()
+            if(num_a == repeat_a && num_b == repeat_b){
+                num_a = 100
+            }
+        }
+        while((num_a + num_b) > 5)
+
+        SendNumPlus()
+    }
+
+    private fun CreatePlus2(){  //レベル2
+        resetHint()
+        now_level = 2
+        var sel_five = (0..1).random()  //上と下どっちを5にするか
+        do{
+            when(sel_five){
+                0 -> {
+                    num_a = 5
+                    num_b = (1..4).random()
+                }
+                1 -> {
+                    num_a = (1..4).random()
+                    num_b = 5
+                }
+            }
+            if(num_a == repeat_a && num_b == repeat_b){
+                num_a = 100
+            }
+        }while((num_a + num_b) > 9)
+
+        SendNumPlus()
+    }
+
+    private fun CreatePlus3(){  //レベル3
+        resetHint()
+        now_level = 3
+        var sel_five = (0..1).random()  //上と下どっちを5以上にするか
+        do{
+            when(sel_five){
+                0 -> {
+                    num_a = (6..8).random()
+                    num_b = (1..3).random()
+                }
+                1 -> {
+                    num_a = (1..3).random()
+                    num_b = (6..8).random()
+                }
+            }
+            if(num_a == repeat_a && num_b == repeat_b){
+                num_a = 100
+            }
+        }while((num_a + num_b) > 9)
+
+        SendNumPlus()
+    }
+
+    private fun CreatePlus4(){  //レベル4
+        resetHint()
+        now_level = 4
+        do {
+            num_a = (2..4).random()
+            num_b = (2..4).random()
+            if(num_a == repeat_a && num_b == repeat_b){
+                num_a = -100
+            }
+        }
+        while((num_a + num_b) < 6)
+
+        SendNumPlus()
+    }
+
+    private fun CreatePlus5(){  //レベル5
+        resetHint()
+        now_level = 5
+        var sel_five = (0..1).random()  //上と下どっちを0にするか
+        do{
+            when(sel_five){
+                0 -> {
+                    num_a = 0
+                    num_b = (1..9).random()
+                }
+                1 -> {
+                    num_a = (1..9).random()
+                    num_b = 0
+                }
+            }
+            if(num_a == repeat_a && num_b == repeat_b){
+                num_a = 100
+            }
+        }while((num_a + num_b) > 9)
+
+        SendNumPlus()
+    }
+
+    private fun CreatePlusMix(level_cnt: Int){  //レベルミックス
+        var offer_que = (1..5).random()
+        when(offer_que){
+            1 -> CreatePlus1()
+            2 -> CreatePlus2()
+            3 -> CreatePlus3()
+            4 -> CreatePlus4()
+            5 -> CreatePlus5()
+        }
+    }
+
+
+    /*****     引き算の問題表示     *****/
+
+    private fun CreateMinus1(){ //レベル1
+        resetHint()
+        now_level = 6
+        do {
+            num_a = (1..5).random()
+            num_b = (1..5).random()
+            if(num_a == repeat_a && num_b == repeat_b){
+                num_a = -100
+            }
+        }
+        while((num_a - num_b) < 1)
+
+        SendNumMinus()
+    }
+
+    private fun CreateMinus2(){ //レベル2
+        resetHint()
+        now_level = 7
+        var sel_five = (0..1).random()  //下に５を入れるか
+        do{
+            when(sel_five){
+                0 -> {
+                    num_a = (6..9).random()
+                    num_b = (1..4).random()
+                }
+                1 -> {
+                    num_a = (6..9).random()
+                    num_b = 5
+                }
+            }
+            if(num_a == repeat_a && num_b == repeat_b){
+                num_a = -100
+            }
+        }while((num_a - num_b) != 5 && sel_five == 0 || (num_a - num_b) == 5 && sel_five == 1)
+
+        SendNumMinus()
+    }
+
+    private fun CreateMinus3(){ //レベル3
+        resetHint()
+        now_level = 8
+        var sel_five = (0..1).random()  //下の数字の大きさ
+        do{
+            when(sel_five){
+                0 -> {
+                    num_a = (6..9).random()
+                    num_b = (1..3).random()
+                }
+                1 -> {
+                    num_a = (6..9).random()
+                    num_b = (6..8).random()
+                }
+            }
+            if(num_a == repeat_a && num_b == repeat_b){
+                num_a = -100
+            }
+        }while((num_a - num_b) < 6 && sel_five == 0 || (num_a - num_b) <= 0 && sel_five == 1)
+
+        SendNumMinus()
+    }
+
+    private fun CreateMinus4(){ //レベル4
+        resetHint()
+        now_level = 9
+        do {
+            num_a = (6..8).random()
+            num_b = (2..4).random()
+            if(num_a == repeat_a && num_b == repeat_b){
+                num_a = 100
+            }
+        }
+        while((num_a - num_b) > 4)
+
+        SendNumMinus()
+    }
+
+    private fun CreateMinus5(){ //レベル5
+        resetHint()
+        now_level = 10
+        var sel_five = (0..1).random()  //0を入れるか答えになるか
+        do{
+            when(sel_five){
+                0 -> {
+                    num_a = (1..9).random()
+                    num_b = (1..9).random()
+                }
+                1 -> {
+                    num_a = (1..9).random()
+                    num_b = 0
+                }
+            }
+            if(num_a == repeat_a && num_b == repeat_b){
+                num_a = -100
+            }
+        }while((num_a - num_b) != 0 && sel_five == 0 || (num_a - num_b) < 0 && sel_five == 1)
+
+        SendNumMinus()
+    }
+
+    private fun CreateMinusMix(level_cnt: Int){ //レベルミックス
+        var offer_que = (1..5).random()
+        when(offer_que){
+            1 -> CreateMinus1()
+            2 -> CreateMinus2()
+            3 -> CreateMinus3()
+            4 -> CreateMinus4()
+            5 -> CreateMinus5()
+        }
+    }
+
+    /*****     ヒントの処理に使った関数     *****/
+    private fun incdecStage(receiveBtn:Int){        //ヒントボタンを押したか戻るボタンを押したか判別
         when(receiveBtn){
             1 -> hint_stage++
             2 -> hint_stage--
         }
     }
 
-    private fun DynamicHint(userClickBtn: Int){
+    private fun DynamicHint(userClickBtn: Int){        //現在のレベルを受け取ってヒントを表示する関数に飛ぶ
         when(now_level){
             1 -> HintPlus1(userClickBtn)
             2 -> HintPlus2(userClickBtn)
@@ -172,167 +476,9 @@ class MathActivity : AppCompatActivity() {
             7 -> HintMinus2(userClickBtn)
             8 -> HintMinus3(userClickBtn)
             9 -> HintMinus4(userClickBtn)
+            10 -> HintMinus5(userClickBtn)
         }
     }
-
-    private fun HintMinus4(userClickBtn: Int){
-
-    }
-
-    private fun HintMinus3(userClickBtn:Int){
-        val uptile = listOf(up_tile1, up_tile2, up_tile3, up_tile4, up_tile5, up_tile6, up_tile7, up_tile8, up_tile9, up_tile5_2)   //ヒントタイルの配列(上側)
-        val undertile = listOf(under_tile1, under_tile2, under_tile3, under_tile4, under_tile5, under_tile6, under_tile7, under_tile8, under_tile9, under_tile5_2) //ヒントタイルの配列(下側)
-
-        incdecStage(userClickBtn)   //押したボタンによってhint_stageを増減
-
-        val alphaFadeout = AlphaAnimation(1.0f, 0.0f)   //フェードアウトの設定
-        alphaFadeout.duration = 500     //0.5秒後
-        val alphaFadein = AlphaAnimation(0.0f, 1.0f)    //フェードイン処理
-        alphaFadein.duration = 500     //0.5秒後
-
-        for(i in 1..num_a){     //上側のタイルは必ずオレンジ→黄色の順なので先に設定
-            when (decideColor(2, i)) {
-                1 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen)
-                2 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen2)
-            }
-        }
-        for(i in 1..10){        //下側のタイルは必ず空白になるので先に設定
-            undertile[i-1].setBackgroundResource(R.drawable.wakusen3)
-        }
-
-
-        when(hint_stage) {
-            0 -> {      //ヒントなし状態
-                deleteTile()
-            }
-            1 -> {      //ヒントタイル表示
-                uptile[9].setVisibility(View.VISIBLE)       //上側の5のタイル
-                for(i in 6..num_a){                         //上側6以上のタイル
-                    uptile[i-1].setVisibility(View.VISIBLE)
-                }
-
-                if(num_b < 5){      //下の数字が5未満のタイル表示
-                    for(i in 1..num_b){
-                        undertile[i-1].setVisibility(View.VISIBLE)
-                    }
-                }else{              //下の数字が5以上のタイル表示
-                    undertile[9].setVisibility(View.VISIBLE)
-                    for(i in 6..num_b){
-                        undertile[i-1].setVisibility(View.VISIBLE)
-                    }
-                }
-            }
-            2 -> {      //タイル移動するアニメーション
-                if(userClickBtn == 1){
-                    if(num_b < 5){
-                        var blank = num_a - num_b   //移動させるタイルの数
-                        for(i in (blank + 1)..(blank + num_b)){
-                            var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", -30.0f)
-                            objectAnimator.duration = 500
-                            objectAnimator.repeatCount = 0
-                            objectAnimator.start()
-                        }
-                    }else{
-                        var objectAnimator2 = ObjectAnimator.ofFloat(uptile[9], "translationY", 30.0f)
-                        objectAnimator2.duration = 500
-                        objectAnimator2.repeatCount = 0
-                        objectAnimator2.start()
-
-                        for(i in 6..num_b){
-                            var objectAnimator3 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 30.0f)
-                            objectAnimator3.duration = 500
-                            objectAnimator3.repeatCount = 0
-                            objectAnimator3.start()
-                        }
-                    }
-                    HintMinus3(1)
-                }else{
-                    settingTile()
-                    HintMinus3(2)
-                }
-            }
-            3 -> {      //タイル移動後の配置
-                if(num_b < 5){
-                    var blank = num_a - num_b   //移動させるタイルの数
-                    for(i in (blank + 1)..(blank + num_b)){
-                        uptile[i-1].setTranslationY(-30.0f)
-                    }
-                }else{
-                    uptile[9].setTranslationY(30.0f)
-                    for(i in 6..num_b){
-                        uptile[i-1].setTranslationY(30.0f)
-                    }
-                }
-            }
-            4 -> {      //タイル移動するアニメーションとフェードアウト
-                if(userClickBtn == 1){
-                    if(num_b < 5){
-
-                        for(i in 1..num_b){
-                            undertile[i-1].startAnimation(alphaFadeout)
-                            undertile[i-1].setVisibility(View.INVISIBLE)
-                        }
-
-                        var blank = num_a - num_b   //移動させるタイルの数
-                        for(i in (blank + 1)..(blank + num_b)){
-                            var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", (302.5 + blank * 30).toFloat())
-                            objectAnimator4.duration = 500
-                            objectAnimator4.repeatCount = 0
-                            objectAnimator4.start()
-
-                            Handler().postDelayed(Runnable {
-                                uptile[i-1].startAnimation(alphaFadeout)
-                                uptile[i-1].setVisibility(View.INVISIBLE)
-                            },1500)
-                        }
-                    }else{
-
-                        for(i in 6..num_b){
-                            undertile[i-1].startAnimation(alphaFadeout)
-                            undertile[i-1].setVisibility(View.INVISIBLE)
-                        }
-
-                        undertile[9].startAnimation(alphaFadeout)
-                        undertile[9].setVisibility(View.INVISIBLE)
-
-                        var objectAnimator5 = ObjectAnimator.ofFloat(uptile[9], "translationY", 302.5f)
-                        objectAnimator5.duration = 500
-                        objectAnimator5.repeatCount = 0
-                        objectAnimator5.start()
-                        Handler().postDelayed(Runnable {
-                            uptile[9].startAnimation(alphaFadeout)
-                            uptile[9].setVisibility(View.INVISIBLE)
-                        },1500)
-
-                        for(i in 6..num_b){
-                            var objectAnimator6 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 302.5f)
-                            objectAnimator6.duration = 500
-                            objectAnimator6.repeatCount = 0
-                            objectAnimator6.start()
-
-                            Handler().postDelayed(Runnable {
-                                uptile[i-1].startAnimation(alphaFadeout)
-                                uptile[i-1].setVisibility(View.INVISIBLE)
-                            },1500)
-                        }
-                    }
-                    HintMinus3(1)
-                }else{
-                    settingTile()
-                    button11.setEnabled(true)
-                    hideTile(2)
-                    HintMinus3(2)
-                }
-            }
-            5 -> {
-                button11.setEnabled(false)
-            }
-        }
-    }
-
-
-
-
 
     private fun resetHint(){    //ヒント初期化処理
         hint_stage = 0
@@ -413,7 +559,7 @@ class MathActivity : AppCompatActivity() {
         }
     }
 
-    private fun decideColor(tilecolor:Int, i:Int):Int{
+    private fun decideColor(tilecolor:Int, i:Int):Int{      //タイルのカラーを決める
         var colored = 0
         when(tilecolor){
             1 -> {  //上側のタイル(レベル1用)
@@ -468,307 +614,6 @@ class MathActivity : AppCompatActivity() {
             }
         }
         return colored
-    }
-
-
-    /*****     レベル判別とそれに応じたテキストの処理     *****/
-
-    private fun Levels(select:Int, level_cnt: Int){
-        when (select) {
-            1 -> lev_Btn.text = "レベル1"
-            2 -> lev_Btn.text = "レベル2"
-            3 -> lev_Btn.text = "レベル3"
-            4 -> lev_Btn.text = "レベル4"
-            5 -> lev_Btn.text = "レベル5"
-            6 -> {
-                when(level_cnt){
-                    1 -> lev_Btn.text = "レベル1"
-                    2 -> lev_Btn.text = "レベル2"
-                    3 -> lev_Btn.text = "レベル3"
-                    4 -> lev_Btn.text = "レベル4"
-                    5 -> lev_Btn.text = "レベル5"
-                }
-            }
-        }
-    }
-
-    private fun JudgmentQ(Level:Int, Math:Int, level_cnt:Int){
-        when(Math){
-            1 -> PlusQ(Level, level_cnt)
-            2 -> MinusQ(Level, level_cnt)
-        }
-    }
-
-    private fun PlusQ(Level: Int, level_cnt: Int){
-        deleteTile()
-        when(Level){
-            1 -> CreatePlus1()
-            2 -> CreatePlus2()
-            3 -> CreatePlus3()
-            4 -> CreatePlus4()
-            5 -> CreatePlus5()
-            6 -> CreatePlusMix(level_cnt)
-        }
-    }
-
-    private fun MinusQ(Level: Int, level_cnt: Int){
-        deleteTile()
-        when(Level){
-            1 -> CreateMinus1()
-            2 -> CreateMinus2()
-            3 -> CreateMinus3()
-            4 -> CreateMinus4()
-            5 -> CreateMinus5()
-            6 -> CreateMinusMix(level_cnt)
-        }
-    }
-
-
-    /*****     テキスト表示処理     *****/
-
-    private fun SendNumPlus(){
-        total = num_a + num_b
-        repeat_a = num_a
-        repeat_b = num_b
-        Edit_text()
-    }
-
-    private fun SendNumMinus(){
-        total = num_a - num_b
-        repeat_a = num_a
-        repeat_b = num_b
-        Edit_text()
-    }
-
-    private fun Edit_text(){
-        Number_a.text = num_a.toString()
-        Number_b.text = num_b.toString()
-    }
-
-
-    /*****     足し算の問題表示     *****/
-
-    private fun CreatePlus1(){
-        resetHint()
-        now_level = 1
-        do {
-            num_a = (1..4).random()
-            num_b = (1..4).random()
-            if(num_a == repeat_a && num_b == repeat_b){
-                num_a = 100
-            }
-        }
-        while((num_a + num_b) > 5)
-
-        SendNumPlus()
-    }
-
-    private fun CreatePlus2(){
-        resetHint()
-        now_level = 2
-        var sel_five = (0..1).random()  //上と下どっちを5にするか
-        do{
-            when(sel_five){
-                0 -> {
-                    num_a = 5
-                    num_b = (1..4).random()
-                }
-                1 -> {
-                    num_a = (1..4).random()
-                    num_b = 5
-                }
-            }
-            if(num_a == repeat_a && num_b == repeat_b){
-                num_a = 100
-            }
-        }while((num_a + num_b) > 9)
-
-        SendNumPlus()
-    }
-
-    private fun CreatePlus3(){
-        resetHint()
-        now_level = 3
-        var sel_five = (0..1).random()  //上と下どっちを5以上にするか
-        do{
-            when(sel_five){
-                0 -> {
-                    num_a = (6..8).random()
-                    num_b = (1..3).random()
-                }
-                1 -> {
-                    num_a = (1..3).random()
-                    num_b = (6..8).random()
-                }
-            }
-            if(num_a == repeat_a && num_b == repeat_b){
-                num_a = 100
-            }
-        }while((num_a + num_b) > 9)
-
-        SendNumPlus()
-    }
-
-    private fun CreatePlus4(){
-        resetHint()
-        now_level = 4
-        do {
-            num_a = (2..4).random()
-            num_b = (2..4).random()
-            if(num_a == repeat_a && num_b == repeat_b){
-                num_a = -100
-            }
-        }
-        while((num_a + num_b) < 6)
-
-        SendNumPlus()
-    }
-
-    private fun CreatePlus5(){
-        resetHint()
-        now_level = 5
-        var sel_five = (0..1).random()  //上と下どっちを0にするか
-        do{
-            when(sel_five){
-                0 -> {
-                    num_a = 0
-                    num_b = (1..9).random()
-                }
-                1 -> {
-                    num_a = (1..9).random()
-                    num_b = 0
-                }
-            }
-            if(num_a == repeat_a && num_b == repeat_b){
-                num_a = 100
-            }
-        }while((num_a + num_b) > 9)
-
-        SendNumPlus()
-    }
-
-    private fun CreatePlusMix(level_cnt: Int){
-        var offer_que = (1..5).random()
-        when(offer_que){
-            1 -> CreatePlus1()
-            2 -> CreatePlus2()
-            3 -> CreatePlus3()
-            4 -> CreatePlus4()
-            5 -> CreatePlus5()
-        }
-    }
-
-
-    /*****     引き算の問題表示     *****/
-
-    private fun CreateMinus1(){
-        resetHint()
-        now_level = 6
-        do {
-            num_a = (1..5).random()
-            num_b = (1..5).random()
-            if(num_a == repeat_a && num_b == repeat_b){
-                num_a = -100
-            }
-        }
-        while((num_a - num_b) < 1)
-
-        SendNumMinus()
-    }
-
-    private fun CreateMinus2(){
-        resetHint()
-        now_level = 7
-        var sel_five = (0..1).random()  //下に５を入れるか
-        do{
-            when(sel_five){
-                0 -> {
-                    num_a = (6..9).random()
-                    num_b = (1..4).random()
-                }
-                1 -> {
-                    num_a = (6..9).random()
-                    num_b = 5
-                }
-            }
-            if(num_a == repeat_a && num_b == repeat_b){
-                num_a = -100
-            }
-        }while((num_a - num_b) != 5 && sel_five == 0 || (num_a - num_b) == 5 && sel_five == 1)
-
-        SendNumMinus()
-    }
-
-    private fun CreateMinus3(){
-        resetHint()
-        now_level = 8
-        var sel_five = (0..1).random()  //下の数字の大きさ
-        do{
-            when(sel_five){
-                0 -> {
-                    num_a = (6..9).random()
-                    num_b = (1..3).random()
-                }
-                1 -> {
-                    num_a = (6..9).random()
-                    num_b = (6..8).random()
-                }
-            }
-            if(num_a == repeat_a && num_b == repeat_b){
-                num_a = -100
-            }
-        }while((num_a - num_b) < 6 && sel_five == 0 || (num_a - num_b) <= 0 && sel_five == 1)
-
-        SendNumMinus()
-    }
-
-    private fun CreateMinus4(){
-        resetHint()
-        now_level = 9
-        do {
-            num_a = (6..8).random()
-            num_b = (2..4).random()
-            if(num_a == repeat_a && num_b == repeat_b){
-                num_a = 100
-            }
-        }
-        while((num_a - num_b) > 4)
-
-        SendNumMinus()
-    }
-
-    private fun CreateMinus5(){
-        resetHint()
-        now_level = 10
-        var sel_five = (0..1).random()  //0を入れるか答えになるか
-        do{
-            when(sel_five){
-                0 -> {
-                    num_a = (1..9).random()
-                    num_b = (1..9).random()
-                }
-                1 -> {
-                    num_a = (1..9).random()
-                    num_b = 0
-                }
-            }
-            if(num_a == repeat_a && num_b == repeat_b){
-                num_a = -100
-            }
-        }while((num_a - num_b) != 0 && sel_five == 0 || (num_a - num_b) < 0 && sel_five == 1)
-
-        SendNumMinus()
-    }
-
-    private fun CreateMinusMix(level_cnt: Int){
-        var offer_que = (1..5).random()
-        when(offer_que){
-            1 -> CreateMinus1()
-            2 -> CreateMinus2()
-            3 -> CreateMinus3()
-            4 -> CreateMinus4()
-            5 -> CreateMinus5()
-        }
     }
 
 
@@ -1549,6 +1394,369 @@ class MathActivity : AppCompatActivity() {
                 }
             }
             5 -> {
+                button11.setEnabled(false)
+            }
+        }
+    }
+
+    //レベル3(引き算)のヒント
+    private fun HintMinus3(userClickBtn:Int){
+        val uptile = listOf(up_tile1, up_tile2, up_tile3, up_tile4, up_tile5, up_tile6, up_tile7, up_tile8, up_tile9, up_tile5_2)   //ヒントタイルの配列(上側)
+        val undertile = listOf(under_tile1, under_tile2, under_tile3, under_tile4, under_tile5, under_tile6, under_tile7, under_tile8, under_tile9, under_tile5_2) //ヒントタイルの配列(下側)
+
+        incdecStage(userClickBtn)   //押したボタンによってhint_stageを増減
+
+        val alphaFadeout = AlphaAnimation(1.0f, 0.0f)   //フェードアウトの設定
+        alphaFadeout.duration = 500     //0.5秒後
+        val alphaFadein = AlphaAnimation(0.0f, 1.0f)    //フェードイン処理
+        alphaFadein.duration = 500     //0.5秒後
+
+        for(i in 1..num_a){     //上側のタイルは必ずオレンジ→黄色の順なので先に設定
+            when (decideColor(2, i)) {
+                1 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen)
+                2 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen2)
+            }
+        }
+        for(i in 1..10){        //下側のタイルは必ず空白になるので先に設定
+            undertile[i-1].setBackgroundResource(R.drawable.wakusen3)
+        }
+
+
+        when(hint_stage) {
+            0 -> {      //ヒントなし状態
+                deleteTile()
+            }
+            1 -> {      //ヒントタイル表示
+                uptile[9].setVisibility(View.VISIBLE)       //上側の5のタイル
+                for(i in 6..num_a){                         //上側6以上のタイル
+                    uptile[i-1].setVisibility(View.VISIBLE)
+                }
+
+                if(num_b < 5){      //下の数字が5未満のタイル表示
+                    for(i in 1..num_b){
+                        undertile[i-1].setVisibility(View.VISIBLE)
+                    }
+                }else{              //下の数字が5以上のタイル表示
+                    undertile[9].setVisibility(View.VISIBLE)
+                    for(i in 6..num_b){
+                        undertile[i-1].setVisibility(View.VISIBLE)
+                    }
+                }
+            }
+            2 -> {      //タイル移動するアニメーション
+                if(userClickBtn == 1){
+                    if(num_b < 5){
+                        var blank = num_a - num_b   //移動させるタイルの数
+                        for(i in (blank + 1)..(blank + num_b)){
+                            var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", -30.0f)
+                            objectAnimator.duration = 500
+                            objectAnimator.repeatCount = 0
+                            objectAnimator.start()
+                        }
+                    }else{
+                        var objectAnimator2 = ObjectAnimator.ofFloat(uptile[9], "translationY", 30.0f)
+                        objectAnimator2.duration = 500
+                        objectAnimator2.repeatCount = 0
+                        objectAnimator2.start()
+
+                        for(i in 6..num_b){
+                            var objectAnimator3 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 30.0f)
+                            objectAnimator3.duration = 500
+                            objectAnimator3.repeatCount = 0
+                            objectAnimator3.start()
+                        }
+                    }
+                    HintMinus3(1)
+                }else{
+                    settingTile()
+                    HintMinus3(2)
+                }
+            }
+            3 -> {      //タイル移動後の配置
+                if(num_b < 5){
+                    var blank = num_a - num_b   //移動させるタイルの数
+                    for(i in (blank + 1)..(blank + num_b)){
+                        uptile[i-1].setTranslationY(-30.0f)
+                    }
+                }else{
+                    uptile[9].setTranslationY(30.0f)
+                    for(i in 6..num_b){
+                        uptile[i-1].setTranslationY(30.0f)
+                    }
+                }
+            }
+            4 -> {      //タイル移動するアニメーションとフェードアウト
+                if(userClickBtn == 1){
+                    if(num_b < 5){
+
+                        for(i in 1..num_b){
+                            undertile[i-1].startAnimation(alphaFadeout)
+                            undertile[i-1].setVisibility(View.INVISIBLE)
+                        }
+
+                        var blank = num_a - num_b   //移動させるタイルの数
+                        for(i in (blank + 1)..(blank + num_b)){
+                            var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", (302.5 + blank * 30).toFloat())
+                            objectAnimator4.duration = 500
+                            objectAnimator4.repeatCount = 0
+                            objectAnimator4.start()
+
+                            Handler().postDelayed(Runnable {
+                                uptile[i-1].startAnimation(alphaFadeout)
+                                uptile[i-1].setVisibility(View.INVISIBLE)
+                            },1500)
+                        }
+                    }else{
+
+                        for(i in 6..num_b){
+                            undertile[i-1].startAnimation(alphaFadeout)
+                            undertile[i-1].setVisibility(View.INVISIBLE)
+                        }
+
+                        undertile[9].startAnimation(alphaFadeout)
+                        undertile[9].setVisibility(View.INVISIBLE)
+
+                        var objectAnimator5 = ObjectAnimator.ofFloat(uptile[9], "translationY", 302.5f)
+                        objectAnimator5.duration = 500
+                        objectAnimator5.repeatCount = 0
+                        objectAnimator5.start()
+                        Handler().postDelayed(Runnable {
+                            uptile[9].startAnimation(alphaFadeout)
+                            uptile[9].setVisibility(View.INVISIBLE)
+                        },1500)
+
+                        for(i in 6..num_b){
+                            var objectAnimator6 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 302.5f)
+                            objectAnimator6.duration = 500
+                            objectAnimator6.repeatCount = 0
+                            objectAnimator6.start()
+
+                            Handler().postDelayed(Runnable {
+                                uptile[i-1].startAnimation(alphaFadeout)
+                                uptile[i-1].setVisibility(View.INVISIBLE)
+                            },1500)
+                        }
+                    }
+                    HintMinus3(1)
+                }else{
+                    settingTile()
+                    button11.setEnabled(true)
+                    hideTile(2)
+                    HintMinus3(2)
+                }
+            }
+            5 -> {
+                button11.setEnabled(false)
+            }
+        }
+    }
+
+    //レベル4(引き算)のヒント
+    private fun HintMinus4(userClickBtn: Int){
+        val uptile = listOf(up_tile1, up_tile2, up_tile3, up_tile4, up_tile5, up_tile6, up_tile7, up_tile8, up_tile9, up_tile5_2)   //ヒントタイルの配列(上側)
+        val undertile = listOf(under_tile1, under_tile2, under_tile3, under_tile4, under_tile5, under_tile6, under_tile7, under_tile8, under_tile9, under_tile5_2) //ヒントタイルの配列(下側)
+
+        incdecStage(userClickBtn)   //押したボタンによってhint_stageを増減
+
+        val alphaFadeout = AlphaAnimation(1.0f, 0.0f)   //フェードアウトの設定
+        alphaFadeout.duration = 500     //0.5秒後
+        val alphaFadein = AlphaAnimation(0.0f, 1.0f)    //フェードイン処理
+        alphaFadein.duration = 500     //0.5秒後
+
+        for(i in 1..num_a){     //上側のタイルは必ずオレンジ→黄色の順なので先に設定
+            when (decideColor(2, i)) {
+                1 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen)
+                2 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen2)
+            }
+        }
+        for(i in 1..10){        //下側のタイルは必ず空白になるので先に設定
+            undertile[i-1].setBackgroundResource(R.drawable.wakusen3)
+        }
+
+
+        when(hint_stage) {
+            0 -> {      //ヒントなし状態
+                deleteTile()
+            }
+            1 -> {      //タイル表示
+                uptile[9].setVisibility(View.VISIBLE)
+                for(i in 6..num_a){
+                    uptile[i-1].setVisibility(View.VISIBLE)
+                }
+                for(i in 1..num_b){
+                    undertile[i-1].setVisibility(View.VISIBLE)
+                }
+            }
+            2 -> {      //5のタイルを1のタイルに分解
+                if(userClickBtn == 1){
+                    uptile[9].startAnimation(alphaFadeout)
+                    uptile[9].setVisibility(View.INVISIBLE)
+                    for(i in 1..5){
+                        uptile[i-1].startAnimation(alphaFadein)
+                        uptile[i-1].setVisibility(View.VISIBLE)
+                    }
+                    HintMinus4(1)
+                }else{
+                    resetTile()
+                    HintMinus4(2)
+                }
+            }
+            3 -> {      //フェードイン後のタイル描画
+                for(i in 1..num_a){
+                    uptile[i-1].setVisibility(View.VISIBLE)
+                }
+            }
+            4 -> {      //タイル移動アニメーション
+                if(userClickBtn == 1){
+                    for(i in 1..num_b){
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 30.0f)
+                        objectAnimator.duration = 500
+                        objectAnimator.repeatCount = 0
+                        objectAnimator.start()
+                    }
+                    HintMinus4(1)
+                }else{
+                    settingTile()
+                    HintMinus4(2)
+                }
+            }
+            5 -> {      //タイル移動後の配置
+                for(i in 1..num_b){
+                    uptile[i-1].setTranslationY(30.0f)
+                }
+            }
+            6 -> {      //タイル移動するアニメーションとフェードアウト
+                if(userClickBtn == 1){
+
+                    for(i in 1..num_b){
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 302.5f)
+                        objectAnimator.duration = 500
+                        objectAnimator.repeatCount = 0
+                        objectAnimator.start()
+
+                        Handler().postDelayed(Runnable {
+                            uptile[i-1].startAnimation(alphaFadeout)
+                            uptile[i-1].setVisibility(View.INVISIBLE)
+                        },1500)
+
+                        undertile[i-1].startAnimation(alphaFadeout)
+                        undertile[i-1].setVisibility(View.INVISIBLE)
+                    }
+                    HintMinus4(1)
+                }else{
+                    button11.setEnabled(true)
+                    settingTile()
+                    hideTile(2)
+                    HintMinus4(2)
+                }
+            }
+            7 -> {
+                button11.setEnabled(false)
+            }
+        }
+    }
+
+    //レベル5(引き算)のヒント
+    private fun HintMinus5(userClickBtn: Int){
+        val uptile = listOf(up_tile1, up_tile2, up_tile3, up_tile4, up_tile5, up_tile6, up_tile7, up_tile8, up_tile9, up_tile5_2)   //ヒントタイルの配列(上側)
+        val undertile = listOf(under_tile1, under_tile2, under_tile3, under_tile4, under_tile5, under_tile6, under_tile7, under_tile8, under_tile9, under_tile5_2) //ヒントタイルの配列(下側)
+
+        incdecStage(userClickBtn)   //押したボタンによってhint_stageを増減
+
+        val alphaFadeout = AlphaAnimation(1.0f, 0.0f)   //フェードアウトの設定
+        alphaFadeout.duration = 500     //0.5秒後
+        val alphaFadein = AlphaAnimation(0.0f, 1.0f)    //フェードイン処理
+        alphaFadein.duration = 500     //0.5秒後
+
+        for(i in 1..num_a){     //上側のタイルは必ずオレンジ→黄色の順なので先に設定
+            when (decideColor(2, i)) {
+                1 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen)
+                2 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen2)
+            }
+        }
+        for(i in 1..10){        //下側のタイルは必ず空白になるので先に設定
+            undertile[i-1].setBackgroundResource(R.drawable.wakusen3)
+        }
+
+
+        when(hint_stage) {
+            0 -> {      //ヒントなし状態
+                deleteTile()
+            }
+            1 -> {      //タイル表示
+                if(num_a >= 5){
+                    uptile[9].setVisibility(View.VISIBLE)
+                    for(i in 6..num_a){
+                        uptile[i-1].setVisibility(View.VISIBLE)
+                    }
+                }else{
+                    for(i in 1..num_a){
+                        uptile[i-1].setVisibility(View.VISIBLE)
+                    }
+                }
+                if(num_b == 0) under_zero.setVisibility(View.VISIBLE)
+                else{
+                    for(i in 1..num_b){
+                        undertile[i-1].setVisibility(View.VISIBLE)
+                    }
+                }
+            }
+            2 -> {      //タイルを下に移動
+                if(userClickBtn == 1){
+                    if(num_a >= 5){
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[9], "translationY", 302.5f)
+                        objectAnimator.duration = 500
+                        objectAnimator.repeatCount = 0
+                        objectAnimator.start()
+
+                        for(i in 6..num_a){
+                            var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 302.5f)
+                            objectAnimator2.duration = 500
+                            objectAnimator2.repeatCount = 0
+                            objectAnimator2.start()
+                        }
+                    }else{
+                        for(i in 1..num_a){
+                            var objectAnimator3 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 302.5f)
+                            objectAnimator3.duration = 500
+                            objectAnimator3.repeatCount = 0
+                            objectAnimator3.start()
+                        }
+                    }
+                    if(num_b != 0){
+                        for(i in 1..num_b){
+                            undertile[i-1].startAnimation(alphaFadeout)
+                            undertile[i-1].setVisibility(View.INVISIBLE)
+                        }
+                        if(num_a >= 5){
+                            Handler().postDelayed(Runnable {
+                                uptile[9].startAnimation(alphaFadeout)
+                                uptile[9].setVisibility(View.INVISIBLE)
+                            },1500)
+
+                            for(i in 6..num_a){
+                                Handler().postDelayed(Runnable {
+                                    uptile[i-1].startAnimation(alphaFadeout)
+                                    uptile[i-1].setVisibility(View.INVISIBLE)
+                                },1500)
+                            }
+                        }else{
+                            for(i in 1..num_a){
+                                Handler().postDelayed(Runnable {
+                                    uptile[i-1].startAnimation(alphaFadeout)
+                                    uptile[i-1].setVisibility(View.INVISIBLE)
+                                },1500)
+                            }
+                        }
+                    }
+                    HintMinus5(1)
+                }else{
+                    button11.setEnabled(true)
+                    settingTile()
+                    HintMinus5(2)
+                }
+            }
+            3 -> {
                 button11.setEnabled(false)
             }
         }
