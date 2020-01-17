@@ -29,6 +29,7 @@ class MathActivity : AppCompatActivity() {
     var false_count = 0 //間違えた回数
     var now_level = 0   //現在出題しているレベル
     var hint_stage = 0 //ヒントの段階
+    //コミット練習
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
