@@ -170,10 +170,16 @@ class MathActivity : AppCompatActivity() {
             5 -> HintPlus5(userClickBtn)
             6 -> HintMinus1(userClickBtn)
             7 -> HintMinus2(userClickBtn)
+            8 -> HintMinus3(userClickBtn)
+            9 -> HintMinus4(userClickBtn)
         }
     }
 
-    private fun HintMinus2(userClickBtn: Int){
+    private fun HintMinus4(userClickBtn: Int){
+
+    }
+
+    private fun HintMinus3(userClickBtn:Int){
         val uptile = listOf(up_tile1, up_tile2, up_tile3, up_tile4, up_tile5, up_tile6, up_tile7, up_tile8, up_tile9, up_tile5_2)   //ヒントタイルの配列(上側)
         val undertile = listOf(under_tile1, under_tile2, under_tile3, under_tile4, under_tile5, under_tile6, under_tile7, under_tile8, under_tile9, under_tile5_2) //ヒントタイルの配列(下側)
 
@@ -184,90 +190,92 @@ class MathActivity : AppCompatActivity() {
         val alphaFadein = AlphaAnimation(0.0f, 1.0f)    //フェードイン処理
         alphaFadein.duration = 500     //0.5秒後
 
-        for(i in 1..num_a){
+        for(i in 1..num_a){     //上側のタイルは必ずオレンジ→黄色の順なので先に設定
             when (decideColor(2, i)) {
                 1 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen)
                 2 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen2)
             }
         }
-        for(i in 1..10){
+        for(i in 1..10){        //下側のタイルは必ず空白になるので先に設定
             undertile[i-1].setBackgroundResource(R.drawable.wakusen3)
         }
 
 
         when(hint_stage) {
-            0 -> {
+            0 -> {      //ヒントなし状態
                 deleteTile()
             }
-            1 -> {
-                uptile[9].setVisibility(View.VISIBLE)
-                for(i in 6..num_a){
+            1 -> {      //ヒントタイル表示
+                uptile[9].setVisibility(View.VISIBLE)       //上側の5のタイル
+                for(i in 6..num_a){                         //上側6以上のタイル
                     uptile[i-1].setVisibility(View.VISIBLE)
                 }
-                if(num_b == 5) undertile[9].setVisibility(View.VISIBLE)
-                else{
+
+                if(num_b < 5){      //下の数字が5未満のタイル表示
                     for(i in 1..num_b){
+                        undertile[i-1].setVisibility(View.VISIBLE)
+                    }
+                }else{              //下の数字が5以上のタイル表示
+                    undertile[9].setVisibility(View.VISIBLE)
+                    for(i in 6..num_b){
                         undertile[i-1].setVisibility(View.VISIBLE)
                     }
                 }
             }
-            2 -> {
+            2 -> {      //タイル移動するアニメーション
                 if(userClickBtn == 1){
-                    if(num_b == 5){
-                        var objectAnimator = ObjectAnimator.ofFloat(uptile[9], "translationY", 30.0f)
-                        objectAnimator.duration = 500
-                        objectAnimator.repeatCount = 0
-                        objectAnimator.start()
+                    if(num_b < 5){
+                        var blank = num_a - num_b   //移動させるタイルの数
+                        for(i in (blank + 1)..(blank + num_b)){
+                            var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", -30.0f)
+                            objectAnimator.duration = 500
+                            objectAnimator.repeatCount = 0
+                            objectAnimator.start()
+                        }
                     }else{
-                        for(i in 6..num_a){
-                            var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", -30.0f)
-                            objectAnimator2.duration = 500
-                            objectAnimator2.repeatCount = 0
-                            objectAnimator2.start()
+                        var objectAnimator2 = ObjectAnimator.ofFloat(uptile[9], "translationY", 30.0f)
+                        objectAnimator2.duration = 500
+                        objectAnimator2.repeatCount = 0
+                        objectAnimator2.start()
+
+                        for(i in 6..num_b){
+                            var objectAnimator3 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 30.0f)
+                            objectAnimator3.duration = 500
+                            objectAnimator3.repeatCount = 0
+                            objectAnimator3.start()
                         }
                     }
-                    HintMinus2(1)
+                    HintMinus3(1)
                 }else{
                     settingTile()
-                    HintMinus2(2)
+                    HintMinus3(2)
                 }
             }
-            3 -> {
-                if(num_b == 5) {
-                    uptile[9].setTranslationY(30.0f)
-                    uptile[9].setVisibility(View.VISIBLE)
-                    undertile[9].setVisibility(View.VISIBLE)
-                }
-                else {
-                    for(i in 6..num_a){
+            3 -> {      //タイル移動後の配置
+                if(num_b < 5){
+                    var blank = num_a - num_b   //移動させるタイルの数
+                    for(i in (blank + 1)..(blank + num_b)){
                         uptile[i-1].setTranslationY(-30.0f)
-                        uptile[i-1].setVisibility(View.VISIBLE)
-                        undertile[i-6].setVisibility(View.VISIBLE)
+                    }
+                }else{
+                    uptile[9].setTranslationY(30.0f)
+                    for(i in 6..num_b){
+                        uptile[i-1].setTranslationY(30.0f)
                     }
                 }
             }
-            4 -> {
+            4 -> {      //タイル移動するアニメーションとフェードアウト
                 if(userClickBtn == 1){
-                    if(num_b == 5){
-                        undertile[9].startAnimation(alphaFadeout)
-                        undertile[9].setVisibility(View.INVISIBLE)
+                    if(num_b < 5){
 
-                        var objectAnimator3 = ObjectAnimator.ofFloat(uptile[9], "translationY", 302.5f)
-                        objectAnimator3.duration = 500
-                        objectAnimator3.repeatCount = 0
-                        objectAnimator3.start()
-
-                        Handler().postDelayed(Runnable {
-                            uptile[9].startAnimation(alphaFadeout)
-                            uptile[9].setVisibility(View.INVISIBLE)
-                        },1500)
-                    }else{
                         for(i in 1..num_b){
                             undertile[i-1].startAnimation(alphaFadeout)
                             undertile[i-1].setVisibility(View.INVISIBLE)
                         }
-                        for(i in 6..num_a){
-                            var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 452.5f)
+
+                        var blank = num_a - num_b   //移動させるタイルの数
+                        for(i in (blank + 1)..(blank + num_b)){
+                            var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", (302.5 + blank * 30).toFloat())
                             objectAnimator4.duration = 500
                             objectAnimator4.repeatCount = 0
                             objectAnimator4.start()
@@ -277,136 +285,54 @@ class MathActivity : AppCompatActivity() {
                                 uptile[i-1].setVisibility(View.INVISIBLE)
                             },1500)
                         }
-                    }
-                    HintMinus2(1)
-                }
-                else{
-                    settingTile()
-                    button11.setEnabled(true)
-                    HintMinus2(2)
-                }
-            }
-            5 -> {
-                button11.setEnabled(false)
-            }
-        }
-    }
-
-    private fun HintMinus1(userClickBtn: Int){
-        val uptile = listOf(up_tile1, up_tile2, up_tile3, up_tile4, up_tile5, up_tile6, up_tile7, up_tile8, up_tile9, up_tile5_2)   //ヒントタイルの配列(上側)
-        val undertile = listOf(under_tile1, under_tile2, under_tile3, under_tile4, under_tile5, under_tile6, under_tile7, under_tile8, under_tile9, under_tile5_2) //ヒントタイルの配列(下側)
-
-        incdecStage(userClickBtn)   //押したボタンによってhint_stageを増減
-
-        val alphaFadeout = AlphaAnimation(1.0f, 0.0f)   //フェードアウトの設定
-        alphaFadeout.duration = 500     //0.5秒後
-        val alphaFadein = AlphaAnimation(0.0f, 1.0f)    //フェードイン処理
-        alphaFadein.duration = 500     //0.5秒後
-
-        for(i in 1..num_a){
-            when (decideColor(2, i)) {
-                1 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen)
-                2 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen2)
-            }
-        }
-        for(i in 1..num_b){
-            undertile[i-1].setBackgroundResource(R.drawable.wakusen3)
-        }
-
-
-        when(hint_stage) {
-            0 -> {
-                deleteTile()
-            }
-            1 -> {
-                if(userClickBtn == 1 || userClickBtn == 2 && num_a ==5){
-                    button12.setEnabled(true)
-                    if(num_a == 5){
-                        uptile[9].setVisibility(View.VISIBLE)
-                        for(i in 1..num_b){
-                            undertile[i-1].setVisibility(View.VISIBLE)
-                        }
                     }else{
-                        HintMinus1(1)
-                    }
-                }else{
-                    HintMinus1(2)
-                }
-            }
-            2 -> {
-                if(userClickBtn == 1){
-                    if(num_a == 5){
-                        uptile[9].startAnimation(alphaFadeout)
-                        uptile[9].setVisibility(View.INVISIBLE)
-                        for(i in 1..num_a){
-                            uptile[i-1].startAnimation(alphaFadein)
+
+                        for(i in 6..num_b){
+                            undertile[i-1].startAnimation(alphaFadeout)
+                            undertile[i-1].setVisibility(View.INVISIBLE)
                         }
-                        HintMinus1(1)
-                    }else{
-                        HintMinus1(1)
-                    }
-                }else{
-                    HintMinus1(2)
-                }
-            }
-            3 -> {
-                for(i in 1..num_a){
-                    if(num_a == 5) uptile[i - 1].setVisibility(View.VISIBLE)
-                    else uptile[i - 1].setVisibility(View.VISIBLE)
-                }
-                for(i in 1..num_b){
-                    undertile[i-1].setVisibility(View.VISIBLE)
-                }
-            }
-            4 -> {
-                if(userClickBtn == 1){
-                    for(i in 1..num_b){
-                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 30.0f)
-                        objectAnimator.duration = 500
-                        objectAnimator.repeatCount = 0
-                        objectAnimator.start()
-                    }
-                    HintMinus1(1)
-                }else{
-                    settingTile()
-                    HintMinus1(2)
-                }
-            }
-            5 -> {
-                for(i in 1..num_b){
-                    uptile[i-1].setTranslationY(30.0f)
-                    uptile[i-1].setVisibility(View.VISIBLE)
-                    undertile[i-1].setVisibility(View.VISIBLE)
-                }
-            }
-            6 -> {
-                if(userClickBtn == 1){
-                    for(i in 1..num_b){
-                        undertile[i-1].startAnimation(alphaFadeout)
-                        undertile[i-1].setVisibility(View.INVISIBLE)
-                    }
-                    for(i in 1..num_b){
-                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 302.5f)
-                        objectAnimator.duration = 500
-                        objectAnimator.repeatCount = 0
-                        objectAnimator.start()
+
+                        undertile[9].startAnimation(alphaFadeout)
+                        undertile[9].setVisibility(View.INVISIBLE)
+
+                        var objectAnimator5 = ObjectAnimator.ofFloat(uptile[9], "translationY", 302.5f)
+                        objectAnimator5.duration = 500
+                        objectAnimator5.repeatCount = 0
+                        objectAnimator5.start()
                         Handler().postDelayed(Runnable {
-                            uptile[i-1].startAnimation(alphaFadeout)
-                            uptile[i-1].setVisibility(View.INVISIBLE)
+                            uptile[9].startAnimation(alphaFadeout)
+                            uptile[9].setVisibility(View.INVISIBLE)
                         },1500)
+
+                        for(i in 6..num_b){
+                            var objectAnimator6 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 302.5f)
+                            objectAnimator6.duration = 500
+                            objectAnimator6.repeatCount = 0
+                            objectAnimator6.start()
+
+                            Handler().postDelayed(Runnable {
+                                uptile[i-1].startAnimation(alphaFadeout)
+                                uptile[i-1].setVisibility(View.INVISIBLE)
+                            },1500)
+                        }
                     }
-                    HintMinus1(1)
+                    HintMinus3(1)
                 }else{
                     settingTile()
                     button11.setEnabled(true)
-                    HintMinus1(2)
+                    hideTile(2)
+                    HintMinus3(2)
                 }
             }
-            7 -> {
+            5 -> {
                 button11.setEnabled(false)
             }
         }
     }
+
+
+
+
 
     private fun resetHint(){    //ヒント初期化処理
         hint_stage = 0
@@ -1386,6 +1312,243 @@ class MathActivity : AppCompatActivity() {
                 }
             }
             3 -> {
+                button11.setEnabled(false)
+            }
+        }
+    }
+
+    //レベル1(引き算)のヒント
+    private fun HintMinus1(userClickBtn: Int){
+        val uptile = listOf(up_tile1, up_tile2, up_tile3, up_tile4, up_tile5, up_tile6, up_tile7, up_tile8, up_tile9, up_tile5_2)   //ヒントタイルの配列(上側)
+        val undertile = listOf(under_tile1, under_tile2, under_tile3, under_tile4, under_tile5, under_tile6, under_tile7, under_tile8, under_tile9, under_tile5_2) //ヒントタイルの配列(下側)
+
+        incdecStage(userClickBtn)   //押したボタンによってhint_stageを増減
+
+        val alphaFadeout = AlphaAnimation(1.0f, 0.0f)   //フェードアウトの設定
+        alphaFadeout.duration = 500     //0.5秒後
+        val alphaFadein = AlphaAnimation(0.0f, 1.0f)    //フェードイン処理
+        alphaFadein.duration = 500     //0.5秒後
+
+        for(i in 1..num_a){     //上側のタイルは必ずオレンジ→黄色の順なので先に設定
+            when (decideColor(2, i)) {
+                1 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen)
+                2 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen2)
+            }
+        }
+        for(i in 1..num_b){     //下側のタイルは必ず空白になるので先に設定
+            undertile[i-1].setBackgroundResource(R.drawable.wakusen3)
+        }
+
+
+        when(hint_stage) {
+            0 -> {      //ヒントなし状態
+                deleteTile()
+            }
+            1 -> {      //5の塊の時にタイル表示
+                if(userClickBtn == 1 || userClickBtn == 2 && num_a ==5){    //ヒントを押すか，上の数字が5の時の戻るを押すと表示
+                    button12.setEnabled(true)
+                    if(num_a == 5){
+                        uptile[9].setVisibility(View.VISIBLE)
+                        for(i in 1..num_b){
+                            undertile[i-1].setVisibility(View.VISIBLE)
+                        }
+                    }else{
+                        HintMinus1(1)
+                    }
+                }else{
+                    HintMinus1(2)       //戻るボタンを押すとヒント０に行く
+                }
+            }
+            2 -> {      //5の塊を1のタイルに変更(上側が5の時のみ)
+                if(userClickBtn == 1){
+                    if(num_a == 5){
+                        uptile[9].startAnimation(alphaFadeout)
+                        uptile[9].setVisibility(View.INVISIBLE)
+                        for(i in 1..num_a){
+                            uptile[i-1].startAnimation(alphaFadein)
+                        }
+                        HintMinus1(1)
+                    }else{
+                        HintMinus1(1)
+                    }
+                }else{
+                    HintMinus1(2)
+                }
+            }
+            3 -> {      //1のタイルでヒント表示と配置
+                for(i in 1..num_a){
+                    if(num_a == 5) uptile[i - 1].setVisibility(View.VISIBLE)
+                    else uptile[i - 1].setVisibility(View.VISIBLE)
+                }
+                for(i in 1..num_b){
+                    undertile[i-1].setVisibility(View.VISIBLE)
+                }
+            }
+            4 -> {      //タイル移動するアニメーション
+                if(userClickBtn == 1){
+                    for(i in 1..num_b){
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 30.0f)
+                        objectAnimator.duration = 500
+                        objectAnimator.repeatCount = 0
+                        objectAnimator.start()
+                    }
+                    HintMinus1(1)
+                }else{
+                    settingTile()
+                    HintMinus1(2)
+                }
+            }
+            5 -> {      //移動後のタイル配置
+                for(i in 1..num_b){
+                    uptile[i-1].setTranslationY(30.0f)
+                    uptile[i-1].setVisibility(View.VISIBLE)
+                    undertile[i-1].setVisibility(View.VISIBLE)
+                }
+            }
+            6 -> {      //タイル移動アニメーションと最後にフェードアウトする
+                if(userClickBtn == 1){
+                    for(i in 1..num_b){
+                        undertile[i-1].startAnimation(alphaFadeout)
+                        undertile[i-1].setVisibility(View.INVISIBLE)
+                    }
+                    for(i in 1..num_b){
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 302.5f)
+                        objectAnimator.duration = 500
+                        objectAnimator.repeatCount = 0
+                        objectAnimator.start()
+                        Handler().postDelayed(Runnable {
+                            uptile[i-1].startAnimation(alphaFadeout)
+                            uptile[i-1].setVisibility(View.INVISIBLE)
+                        },1500)
+                    }
+                    HintMinus1(1)
+                }else{
+                    settingTile()
+                    button11.setEnabled(true)
+                    HintMinus1(2)
+                }
+            }
+            7 -> {
+                button11.setEnabled(false)
+            }
+        }
+    }
+
+    //レベル2(引き算)のヒント
+    private fun HintMinus2(userClickBtn: Int){
+        val uptile = listOf(up_tile1, up_tile2, up_tile3, up_tile4, up_tile5, up_tile6, up_tile7, up_tile8, up_tile9, up_tile5_2)   //ヒントタイルの配列(上側)
+        val undertile = listOf(under_tile1, under_tile2, under_tile3, under_tile4, under_tile5, under_tile6, under_tile7, under_tile8, under_tile9, under_tile5_2) //ヒントタイルの配列(下側)
+
+        incdecStage(userClickBtn)   //押したボタンによってhint_stageを増減
+
+        val alphaFadeout = AlphaAnimation(1.0f, 0.0f)   //フェードアウトの設定
+        alphaFadeout.duration = 500     //0.5秒後
+        val alphaFadein = AlphaAnimation(0.0f, 1.0f)    //フェードイン処理
+        alphaFadein.duration = 500     //0.5秒後
+
+        for(i in 1..num_a){
+            when (decideColor(2, i)) {      //上側のタイルは必ずオレンジ→黄色の順なので先に設定
+                1 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen)
+                2 -> uptile[i - 1].setBackgroundResource(R.drawable.wakusen2)
+            }
+        }
+        for(i in 1..10){        //下側のタイルは必ず空白になるので先に設定
+            undertile[i-1].setBackgroundResource(R.drawable.wakusen3)
+        }
+
+
+        when(hint_stage) {
+            0 -> {      //ヒントなし状態
+                deleteTile()
+            }
+            1 -> {      //ヒントタイル表示
+                uptile[9].setVisibility(View.VISIBLE)
+                for(i in 6..num_a){
+                    uptile[i-1].setVisibility(View.VISIBLE)
+                }
+                if(num_b == 5) undertile[9].setVisibility(View.VISIBLE)     //下の数字が5の時
+                else{                                                       //下の数字が5ではないとき
+                    for(i in 1..num_b){
+                        undertile[i-1].setVisibility(View.VISIBLE)
+                    }
+                }
+            }
+            2 -> {      //タイル移動アニメーション(少しずれる動作)
+                if(userClickBtn == 1){
+                    if(num_b == 5){
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[9], "translationY", 30.0f)
+                        objectAnimator.duration = 500
+                        objectAnimator.repeatCount = 0
+                        objectAnimator.start()
+                    }else{
+                        for(i in 6..num_a){
+                            var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", -30.0f)
+                            objectAnimator2.duration = 500
+                            objectAnimator2.repeatCount = 0
+                            objectAnimator2.start()
+                        }
+                    }
+                    HintMinus2(1)
+                }else{
+                    settingTile()
+                    HintMinus2(2)
+                }
+            }
+            3 -> {      //移動後のタイル配置
+                if(num_b == 5) {
+                    uptile[9].setTranslationY(30.0f)
+                    uptile[9].setVisibility(View.VISIBLE)
+                    undertile[9].setVisibility(View.VISIBLE)
+                }
+                else {
+                    for(i in 6..num_a){
+                        uptile[i-1].setTranslationY(-30.0f)
+                        uptile[i-1].setVisibility(View.VISIBLE)
+                        undertile[i-6].setVisibility(View.VISIBLE)
+                    }
+                }
+            }
+            4 -> {      //タイル移動するアニメーションとフェードアウト
+                if(userClickBtn == 1){
+                    if(num_b == 5){
+                        undertile[9].startAnimation(alphaFadeout)
+                        undertile[9].setVisibility(View.INVISIBLE)
+
+                        var objectAnimator3 = ObjectAnimator.ofFloat(uptile[9], "translationY", 302.5f)
+                        objectAnimator3.duration = 500
+                        objectAnimator3.repeatCount = 0
+                        objectAnimator3.start()
+
+                        Handler().postDelayed(Runnable {
+                            uptile[9].startAnimation(alphaFadeout)
+                            uptile[9].setVisibility(View.INVISIBLE)
+                        },1500)
+                    }else{
+                        for(i in 1..num_b){
+                            undertile[i-1].startAnimation(alphaFadeout)
+                            undertile[i-1].setVisibility(View.INVISIBLE)
+                        }
+                        for(i in 6..num_a){
+                            var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 452.5f)
+                            objectAnimator4.duration = 500
+                            objectAnimator4.repeatCount = 0
+                            objectAnimator4.start()
+
+                            Handler().postDelayed(Runnable {
+                                uptile[i-1].startAnimation(alphaFadeout)
+                                uptile[i-1].setVisibility(View.INVISIBLE)
+                            },1500)
+                        }
+                    }
+                    HintMinus2(1)
+                }
+                else{
+                    settingTile()
+                    button11.setEnabled(true)
+                    HintMinus2(2)
+                }
+            }
+            5 -> {
                 button11.setEnabled(false)
             }
         }
