@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.activity_level.*
 import kotlinx.android.synthetic.main.activity_math.*
 import android.content.Intent
 import android.os.Handler
+import android.os.SystemClock
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
@@ -39,6 +40,7 @@ class MathActivity : AppCompatActivity() {
         var m_sel = intent.getIntExtra("NUmber", 0)
         var level_cnt = intent.getIntExtra("playlev",1)
         var false_C = intent.getIntExtra("monsterAct_false", 0)
+        var previous_time = intent.getLongExtra("Timer", 0)
         val intent = Intent(this@MathActivity, BreakActivity::class.java)
         val back = Intent(this@MathActivity, LevelActivity::class.java)
         back.putExtra("backMath", m_sel)
@@ -46,6 +48,8 @@ class MathActivity : AppCompatActivity() {
         intent.putExtra("NUMber", m_sel)
         intent.putExtra("SELLEv", lev)
         intent.putExtra("PLAYlev", level_cnt)
+
+        val start = System.currentTimeMillis()  //レベルミックスの時間計測用
 
 
         false_count = false_C
@@ -58,7 +62,7 @@ class MathActivity : AppCompatActivity() {
             startActivity(back)
         }
         lev_Btn.setOnClickListener {
-            startActivity(intent)
+
         }
 
         button1.setOnClickListener {
@@ -66,7 +70,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 1
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent)
+                ClickBtn(lev, m_sel, intent, start, previous_time)
             }
         }
         button2.setOnClickListener {
@@ -74,7 +78,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 2
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent)
+                ClickBtn(lev, m_sel, intent, start, previous_time)
             }
         }
         button3.setOnClickListener {
@@ -82,7 +86,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 3
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent)
+                ClickBtn(lev, m_sel, intent, start, previous_time)
             }
         }
         button4.setOnClickListener {
@@ -90,7 +94,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 4
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent)
+                ClickBtn(lev, m_sel, intent, start, previous_time)
             }
         }
         button5.setOnClickListener {
@@ -98,7 +102,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 5
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent)
+                ClickBtn(lev, m_sel, intent, start, previous_time)
             }
         }
         button6.setOnClickListener {
@@ -106,7 +110,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 6
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent)
+                ClickBtn(lev, m_sel, intent, start, previous_time)
             }
         }
         button7.setOnClickListener {
@@ -114,7 +118,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 7
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent)
+                ClickBtn(lev, m_sel, intent, start, previous_time)
             }
         }
         button8.setOnClickListener {
@@ -122,7 +126,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 8
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent)
+                ClickBtn(lev, m_sel, intent, start, previous_time)
             }
         }
         button9.setOnClickListener {
@@ -130,7 +134,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 9
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent)
+                ClickBtn(lev, m_sel, intent, start, previous_time)
             }
         }
         button0.setOnClickListener {
@@ -138,7 +142,7 @@ class MathActivity : AppCompatActivity() {
                 on_off_click = 0
                 answer = 0
                 Number_total.text = answer.toString()
-                ClickBtn(lev, m_sel, intent)
+                ClickBtn(lev, m_sel, intent, start, previous_time)
             }
         }
 
@@ -153,8 +157,14 @@ class MathActivity : AppCompatActivity() {
         }
     }
 
+    /*****     レベルミックス用の時間処理     *****/
+    private fun Time_fun(start: Long, previous: Long):Long{
+        val end = System.currentTimeMillis()
+        var total = (end - start)/1000
+        total += previous
+        return total
 
-
+    }
 
     /*****     レベル判別とそれに応じたテキストの処理     *****/
 
@@ -618,7 +628,7 @@ class MathActivity : AppCompatActivity() {
 
     /*****     数字ボタンを押したときの処理     *****/
 
-    private fun ClickBtn(lev:Int, m_sel:Int, intent: Intent){
+    private fun ClickBtn(lev:Int, m_sel:Int, intent: Intent, start:Long, previous:Long){
         if(answer == total){
             suc_cnt++
             when(suc_cnt){
@@ -630,6 +640,8 @@ class MathActivity : AppCompatActivity() {
                 6 -> {
                     suc_count6.setImageResource(R.drawable.circle2)
                     Handler().postDelayed(Runnable {
+                        var r = Time_fun(start, previous)
+                        intent.putExtra("Timer", r)
                         intent.putExtra("mathAct_false", false_count)
                         startActivity(intent)
                     },800)

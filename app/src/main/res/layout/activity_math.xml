@@ -597,6 +597,4 @@
             app:srcCompat="@drawable/zero" />
 
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

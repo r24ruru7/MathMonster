@@ -34,4 +34,5 @@
     <string name="count_false">まちがい：</string>
     <string name="move_title">タイトル</string>
     <string name="move_level">レベルせんたく</string>
+    <string name="timer_cnt">じかん:</string>
 </resources>

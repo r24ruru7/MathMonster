@@ -29,6 +29,7 @@ class MonsterActivity : AppCompatActivity() {
         var select = intent.getIntExtra("selLev", 1)
         var level_cnt = intent.getIntExtra("PLAYLEV", 1)
         var false_count = intent.getIntExtra("BREAKACT_FALSE", 0)
+        var time_receive = intent.getLongExtra("Timer", 0)
         Levels(select, m_sel, level_cnt)
 
         val intent = Intent(this@MonsterActivity, MathActivity::class.java)
@@ -36,6 +37,7 @@ class MonsterActivity : AppCompatActivity() {
         intent.putExtra("NUmber", m_sel)
         intent.putExtra("playlev", level_cnt)
         intent.putExtra("monsterAct_false", false_count)
+        intent.putExtra("Timer", time_receive)
 
         val rotate = RotateAnimation(
             0f,
@@ -76,7 +78,7 @@ class MonsterActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             }
-        }, 3000)
+        }, 2000)
 
 
     }

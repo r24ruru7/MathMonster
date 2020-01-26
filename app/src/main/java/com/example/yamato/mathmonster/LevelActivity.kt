@@ -29,6 +29,7 @@ class LevelActivity : AppCompatActivity() {
         val back = Intent(this@LevelActivity, MainActivity::class.java)
         intent.putExtra("Number", select)
 
+
         lev1.setOnClickListener {
             select_level = 1
             intent.putExtra("selLev", select_level)

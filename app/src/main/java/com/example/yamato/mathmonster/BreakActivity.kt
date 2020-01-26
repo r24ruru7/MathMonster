@@ -21,6 +21,7 @@ class BreakActivity : AppCompatActivity() {
         var m_sel = intent.getIntExtra("NUMber", 1)
         var level_cnt = intent.getIntExtra("PLAYlev", 1)
         var false_count = intent.getIntExtra("mathAct_false", 0)
+        var time_receive = intent.getLongExtra("Timer", 0)
 
         val intent = Intent(this@BreakActivity, LevelActivity::class.java)
         val mix = Intent(this@BreakActivity, MonsterActivity::class.java)
@@ -29,8 +30,10 @@ class BreakActivity : AppCompatActivity() {
         mix.putExtra("Number", m_sel)
         mix.putExtra("selLev", lev)
         mix.putExtra("BREAKACT_FALSE", false_count)
+        mix.putExtra("Timer", time_receive)
         result.putExtra("clear_math", m_sel)
         result.putExtra("breakAct_false", false_count)
+        result.putExtra("Timer", time_receive)
 
         Levels(lev, m_sel, level_cnt)
 
@@ -53,7 +56,7 @@ class BreakActivity : AppCompatActivity() {
                     }
                 }
             }
-        },4000)
+        },2000)
 
 
 
