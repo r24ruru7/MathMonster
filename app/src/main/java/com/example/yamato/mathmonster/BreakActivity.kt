@@ -46,17 +46,15 @@ class BreakActivity : AppCompatActivity() {
 
         var whichs = 0
         whichs = fadein()
-        Handler().postDelayed(Runnable {
-            if(whichs == 1) {
-                lastground.setOnClickListener {
-                    when(lev){
-                        1,2,3,4,5 -> startActivity(intent)
-                        6 -> startActivity(mix)
-                        10 -> startActivity(result)
-                    }
+        if(whichs == 1) {
+            lastground.setOnClickListener {
+                when(lev){
+                    1,2,3,4,5 -> startActivity(intent)
+                    6 -> startActivity(mix)
+                    10 -> startActivity(result)
                 }
             }
-        },2000)
+        }
 
 
 
@@ -66,36 +64,36 @@ class BreakActivity : AppCompatActivity() {
         if(m_sel == 1) {
             when (select) {
                 1 -> {
-                    breakimage.setImageResource(R.drawable.c01)
+                    breakimage.setImageResource(R.drawable.monster1)
                 }
                 2 -> {
-                    breakimage.setImageResource(R.drawable.c02)
+                    breakimage.setImageResource(R.drawable.monster2)
                 }
                 3 -> {
-                    breakimage.setImageResource(R.drawable.c03)
+                    breakimage.setImageResource(R.drawable.monster3)
                 }
                 4 -> {
-                    breakimage.setImageResource(R.drawable.c04)
+                    breakimage.setImageResource(R.drawable.monster4)
                 }
                 5 -> {
-                    breakimage.setImageResource(R.drawable.c05)
+                    breakimage.setImageResource(R.drawable.monster5)
                 }
                 6 -> {
                     when(level_cnt){
                         1 -> {
-                            breakimage.setImageResource(R.drawable.c01)
+                            breakimage.setImageResource(R.drawable.monster1)
                         }
                         2 -> {
-                            breakimage.setImageResource(R.drawable.c02)
+                            breakimage.setImageResource(R.drawable.monster2)
                         }
                         3 -> {
-                            breakimage.setImageResource(R.drawable.c03)
+                            breakimage.setImageResource(R.drawable.monster3)
                         }
                         4 -> {
-                            breakimage.setImageResource(R.drawable.c04)
+                            breakimage.setImageResource(R.drawable.monster4)
                         }
                         5 -> {
-                            breakimage.setImageResource(R.drawable.c05)
+                            breakimage.setImageResource(R.drawable.monster5)
                         }
                     }
                 }
@@ -103,36 +101,36 @@ class BreakActivity : AppCompatActivity() {
         }else if(m_sel == 2){
             when (select) {
                 1 -> {
-                    breakimage.setImageResource(R.drawable.c06)
+                    breakimage.setImageResource(R.drawable.monster6)
                 }
                 2 -> {
-                    breakimage.setImageResource(R.drawable.c05)
+                    breakimage.setImageResource(R.drawable.monster7)
                 }
                 3 -> {
-                    breakimage.setImageResource(R.drawable.c04)
+                    breakimage.setImageResource(R.drawable.monster8)
                 }
                 4 -> {
-                    breakimage.setImageResource(R.drawable.c03)
+                    breakimage.setImageResource(R.drawable.monster9)
                 }
                 5 -> {
-                    breakimage.setImageResource(R.drawable.c02)
+                    breakimage.setImageResource(R.drawable.monster10)
                 }
                 6 -> {
                     when(level_cnt){
                         1 -> {
-                            breakimage.setImageResource(R.drawable.c05)
+                            breakimage.setImageResource(R.drawable.monster6)
                         }
                         2 -> {
-                            breakimage.setImageResource(R.drawable.c04)
+                            breakimage.setImageResource(R.drawable.monster7)
                         }
                         3 -> {
-                            breakimage.setImageResource(R.drawable.c03)
+                            breakimage.setImageResource(R.drawable.monster8)
                         }
                         4 -> {
-                            breakimage.setImageResource(R.drawable.c02)
+                            breakimage.setImageResource(R.drawable.monster9)
                         }
                         5 -> {
-                            breakimage.setImageResource(R.drawable.c01)
+                            breakimage.setImageResource(R.drawable.monster10)
                         }
                     }
                 }

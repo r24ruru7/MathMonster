@@ -72,13 +72,11 @@ class MonsterActivity : AppCompatActivity() {
 
         var whichs = 0
         whichs = fadein()
-        Handler().postDelayed(Runnable {
-            if (whichs == 1) {
-                ground0.setOnClickListener {
-                    startActivity(intent)
-                }
+        if (whichs == 1) {
+            ground0.setOnClickListener {
+                startActivity(intent)
             }
-        }, 2000)
+        }
 
 
     }
@@ -88,44 +86,44 @@ class MonsterActivity : AppCompatActivity() {
             when (select) {
                 1 -> {
                     leveltext.text = "レベル1"
-                    subimage.setImageResource(R.drawable.c01)
+                    subimage.setImageResource(R.drawable.monster1)
                 }
                 2 -> {
                     leveltext.text = "レベル2"
-                    subimage.setImageResource(R.drawable.c02)
+                    subimage.setImageResource(R.drawable.monster2)
                 }
                 3 -> {
                     leveltext.text = "レベル3"
-                    subimage.setImageResource(R.drawable.c03)
+                    subimage.setImageResource(R.drawable.monster3)
                 }
                 4 -> {
                     leveltext.text = "レベル4"
-                    subimage.setImageResource(R.drawable.c04)
+                    subimage.setImageResource(R.drawable.monster4)
                 }
                 5 -> {
                     leveltext.text = "レベル5"
-                    subimage.setImageResource(R.drawable.c05)
+                    subimage.setImageResource(R.drawable.monster5)
                 }
                 6 -> {
                     when(level_cnt){
                         1 -> {
-                            subimage.setImageResource(R.drawable.c01)
+                            subimage.setImageResource(R.drawable.monster1)
                             leveltext.text = "レベル1"
                         }
                         2 -> {
-                            subimage.setImageResource(R.drawable.c02)
+                            subimage.setImageResource(R.drawable.monster2)
                             leveltext.text = "レベル２"
                         }
                         3 -> {
-                            subimage.setImageResource(R.drawable.c03)
+                            subimage.setImageResource(R.drawable.monster3)
                             leveltext.text = "レベル３"
                         }
                         4 -> {
-                            subimage.setImageResource(R.drawable.c04)
+                            subimage.setImageResource(R.drawable.monster4)
                             leveltext.text = "レベル４"
                         }
                         5 -> {
-                            subimage.setImageResource(R.drawable.c05)
+                            subimage.setImageResource(R.drawable.monster5)
                             leveltext.text = "レベル５"
                         }
                     }
@@ -135,44 +133,44 @@ class MonsterActivity : AppCompatActivity() {
             when (select) {
                 1 -> {
                     leveltext.text = "レベル1"
-                    subimage.setImageResource(R.drawable.c06)
+                    subimage.setImageResource(R.drawable.monster6)
                 }
                 2 -> {
                     leveltext.text = "レベル2"
-                    subimage.setImageResource(R.drawable.c05)
+                    subimage.setImageResource(R.drawable.monster7)
                 }
                 3 -> {
                     leveltext.text = "レベル3"
-                    subimage.setImageResource(R.drawable.c04)
+                    subimage.setImageResource(R.drawable.monster8)
                 }
                 4 -> {
                     leveltext.text = "レベル4"
-                    subimage.setImageResource(R.drawable.c03)
+                    subimage.setImageResource(R.drawable.monster9)
                 }
                 5 -> {
                     leveltext.text = "レベル5"
-                    subimage.setImageResource(R.drawable.c02)
+                    subimage.setImageResource(R.drawable.monster10)
                 }
                 6 -> {
                     when(level_cnt){
                         1 -> {
-                            subimage.setImageResource(R.drawable.c05)
+                            subimage.setImageResource(R.drawable.monster6)
                             leveltext.text = "レベル1"
                         }
                         2 -> {
-                            subimage.setImageResource(R.drawable.c04)
+                            subimage.setImageResource(R.drawable.monster7)
                             leveltext.text = "レベル２"
                         }
                         3 -> {
-                            subimage.setImageResource(R.drawable.c03)
+                            subimage.setImageResource(R.drawable.monster8)
                             leveltext.text = "レベル３"
                         }
                         4 -> {
-                            subimage.setImageResource(R.drawable.c02)
+                            subimage.setImageResource(R.drawable.monster9)
                             leveltext.text = "レベル４"
                         }
                         5 -> {
-                            subimage.setImageResource(R.drawable.c01)
+                            subimage.setImageResource(R.drawable.monster10)
                             leveltext.text = "レベル５"
                         }
                     }
