@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_math.*
 import android.content.Intent
 import android.os.Handler
 import android.os.SystemClock
+import android.util.DisplayMetrics
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
@@ -30,6 +31,10 @@ class MathActivity : AppCompatActivity() {
     var false_count = 0 //間違えた回数
     var now_level = 0   //現在出題しているレベル
     var hint_stage = 0 //ヒントの段階
+    var dpi = 0 //画面解像度
+
+
+
     //コミット練習
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +55,10 @@ class MathActivity : AppCompatActivity() {
         intent.putExtra("PLAYlev", level_cnt)
 
         val start = System.currentTimeMillis()  //レベルミックスの時間計測用
+
+        val density = resources.displayMetrics.density
+        textView2.text = density.toString()
+        dpi = density.toInt()
 
 
         false_count = false_C
@@ -699,7 +708,7 @@ class MathActivity : AppCompatActivity() {
             2 -> {      //タイルが動くアニメーション
                 if(userClickBtn == 1){
                     for(i in 1..num_a){
-                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", (320 - 29 * num_b).toFloat())  //uptileのY軸を指定された分だけ下げる
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", TEST(1, 2))  //uptileのY軸を指定された分だけ下げる
                         objectAnimator.duration = 500   //0.5秒後
                         objectAnimator.repeatCount = 0  //リピートしない
                         objectAnimator.start()  //実行
@@ -712,9 +721,8 @@ class MathActivity : AppCompatActivity() {
             3 -> {      //タイル移動後の配置処理
                 hideTile(2)
                 undertile[9].setVisibility(View.INVISIBLE)     //ヒント4から戻ってきたときに5の塊のタイルを隠す
-                var movetile = (320 - 29 * num_b).toFloat()     //タイルの配置を変えてる
                 for (i in 1..num_a) {
-                    uptile[i - 1].setTranslationY(movetile)
+                    uptile[i - 1].setTranslationY(TEST(1,3))
                 }
                 button11.setEnabled(true)   //hintstage=4から帰ってきたとき用
                 if(num_a + num_b !=5) button11.setEnabled(false)
@@ -772,13 +780,13 @@ class MathActivity : AppCompatActivity() {
                     button11.setEnabled(true)   //ヒントボタン押せるようになる
                     if(num_b == 5){
                         for(i in 1..num_a){     //移動アニメーション(詳細はHintPlus1へ)
-                            var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", (322 - 30 * num_b).toFloat())
+                            var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", TEST(2,2))
                             objectAnimator.duration = 500
                             objectAnimator.repeatCount = 0
                             objectAnimator.start()
                         }
                     }else if(num_a == 5){
-                        var objectAnimator = ObjectAnimator.ofFloat(uptile[9], "translationY", (322 - 30 * num_b).toFloat())
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[9], "translationY", TEST(2,2))
                         objectAnimator.duration = 500
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
@@ -1771,6 +1779,84 @@ class MathActivity : AppCompatActivity() {
                 button11.setEnabled(false)
             }
         }
+    }
+
+    private fun TEST (mathLevel:Int, hintLevel:Int) : Float{    //420dpi, mdpiでアニメーションの移動量を変える用の苦肉の策関数
+        var xxx = 0.toFloat()
+        if(dpi != 1){   //420dpiアニメーション
+            when(mathLevel){
+                1->{    //足し算レベル1
+                    xxx = (320 -29 * num_b).toFloat()
+                    if(dpi != 1) textView2.text = "true" + dpi.toString()
+                    else textView2.text = "false" + dpi.toString()
+                }
+                2->{    //足し算レベル2
+                    xxx = (322 - 30 * num_b).toFloat()
+                }
+                3->{    //足し算レベル3
+
+                }
+                4->{    //足し算レベル4
+
+                }
+                5->{    //足し算レベル5
+
+                }
+                6->{    //引き算レベル1
+
+                }
+                7->{    //引き算レベル2
+
+                }
+                8->{    //引き算レベル3
+
+                }
+                9->{    //引き算レベル4
+
+                }
+                10->{    //引き算レベル5
+
+                }
+            }
+
+        }else{  //mdpiアニメーション
+            when(mathLevel) {
+                1 -> {    //足し算レベル1
+                    xxx = (90 - 60 * num_b).toFloat()
+                    if (dpi != 1) textView2.text = "true" + dpi.toString()
+                    else textView2.text = "false" + dpi.toString()
+                }
+                2 -> {    //足し算レベル2
+
+                }
+                3 -> {    //足し算レベル3
+
+                }
+                4 -> {    //足し算レベル4
+
+                }
+                5 -> {    //足し算レベル5
+
+                }
+                6 -> {    //引き算レベル1
+
+                }
+                7 -> {    //引き算レベル2
+
+                }
+                8 -> {    //引き算レベル3
+
+                }
+                9 -> {    //引き算レベル4
+
+                }
+                10 -> {    //引き算レベル5
+
+                }
+            }
+        }
+
+        return  xxx
     }
 }
 

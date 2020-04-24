@@ -35,4 +35,6 @@
     <string name="move_title">タイトル</string>
     <string name="move_level">レベルせんたく</string>
     <string name="timer_cnt">じかん:</string>
+    <string name="test">test</string>
+    <string name="test2">test2</string>
 </resources>
