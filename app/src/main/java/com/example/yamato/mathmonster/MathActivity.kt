@@ -31,6 +31,7 @@ class MathActivity : AppCompatActivity() {
     var false_count = 0 //間違えた回数
     var now_level = 0   //現在出題しているレベル
     var hint_stage = 0 //ヒントの段階
+    var blank = 0   //引き算ヒント3用
     var dpi = 0 //画面解像度
 
 
@@ -574,6 +575,14 @@ class MathActivity : AppCompatActivity() {
                     },500)
                 }
             }
+            5 -> {
+                for(i in 6..num_b){
+                    uptile[i-1].setVisibility(View.VISIBLE)
+                    undertile[i-1].setVisibility(View.VISIBLE)
+                    uptile[9].setVisibility(View.VISIBLE)
+                    undertile[9].setVisibility(View.VISIBLE)
+                }
+            }
         }
     }
 
@@ -708,7 +717,7 @@ class MathActivity : AppCompatActivity() {
             2 -> {      //タイルが動くアニメーション
                 if(userClickBtn == 1){
                     for(i in 1..num_a){
-                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", TEST(1, 2))  //uptileのY軸を指定された分だけ下げる
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(1, 2))  //uptileのY軸を指定された分だけ下げる
                         objectAnimator.duration = 500   //0.5秒後
                         objectAnimator.repeatCount = 0  //リピートしない
                         objectAnimator.start()  //実行
@@ -722,7 +731,7 @@ class MathActivity : AppCompatActivity() {
                 hideTile(2)
                 undertile[9].setVisibility(View.INVISIBLE)     //ヒント4から戻ってきたときに5の塊のタイルを隠す
                 for (i in 1..num_a) {
-                    uptile[i - 1].setTranslationY(TEST(1,3))
+                    uptile[i - 1].setTranslationY(AnimationFun(1,3))
                 }
                 button11.setEnabled(true)   //hintstage=4から帰ってきたとき用
                 if(num_a + num_b !=5) button11.setEnabled(false)
@@ -780,13 +789,13 @@ class MathActivity : AppCompatActivity() {
                     button11.setEnabled(true)   //ヒントボタン押せるようになる
                     if(num_b == 5){
                         for(i in 1..num_a){     //移動アニメーション(詳細はHintPlus1へ)
-                            var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", TEST(2,2))
+                            var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(2,2))
                             objectAnimator.duration = 500
                             objectAnimator.repeatCount = 0
                             objectAnimator.start()
                         }
                     }else if(num_a == 5){
-                        var objectAnimator = ObjectAnimator.ofFloat(uptile[9], "translationY", TEST(2,2))
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(2,2))
                         objectAnimator.duration = 500
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
@@ -819,7 +828,7 @@ class MathActivity : AppCompatActivity() {
                 resetTile()
                 if(num_a >= 5){ //上側が5以上の時
                     uptile[9].setVisibility(View.VISIBLE)
-                    uptile[9].setTranslationY((-28.5*(num_a-5)).toFloat())  //5の塊のタイルを上にずらす、表示微調整のため28.5の倍で計算
+                    uptile[9].setTranslationY(AnimationFun(3,1))  //5の塊のタイルを上にずらす、表示微調整のため28.5の倍で計算
                     for(i in (6-5)..(num_a-5)){     //5の塊のタイルの下に配置するように
                         uptile[i - 1].setVisibility(View.VISIBLE)
                         when (decideColor(5, i)) {
@@ -857,18 +866,18 @@ class MathActivity : AppCompatActivity() {
                     button11.setEnabled(true)   //ヒントボタン押せるようになる
                     if(num_a >= 5){
                         for(i in 1..(num_a-5)){     //移動アニメーション(詳細はHintPlus1へ)
-                            var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", (322 - 30 * num_b).toFloat())
+                            var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(3,2))
                             objectAnimator.duration = 500
                             objectAnimator.repeatCount = 0
                             objectAnimator.start()
                         }
-                        var objectAnimator2 = ObjectAnimator.ofFloat(uptile[9], "translationY", (322 - 29.0 * (num_b + num_a - 5)).toFloat())
+                        var objectAnimator2 = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(3,3))
                         objectAnimator2.duration = 500
                         objectAnimator2.repeatCount = 0
                         objectAnimator2.start()
                     }else {
                         for(i in 1..num_a){     //移動アニメーション(詳細はHintPlus1へ)
-                            var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", (322 - 29.5 * num_b).toFloat())
+                            var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(3,4))
                             objectAnimator.duration = 500
                             objectAnimator.repeatCount = 0
                             objectAnimator.start()
@@ -938,14 +947,14 @@ class MathActivity : AppCompatActivity() {
             3 -> {
                 if(userClickBtn == 1){
                     if(num_a > num_b){
-                        var objectAnimator = ObjectAnimator.ofFloat(undertile[num_b-1], "translationY", -30.0f)
+                        var objectAnimator = ObjectAnimator.ofFloat(undertile[num_b-1], "translationY", AnimationFun(4,2))
                         objectAnimator.duration = 500
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
                     }else{
                         var blank = 5 - num_b
                         for(i in 1..blank){
-                            var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 30.0f)
+                            var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(4,1))
                             objectAnimator2.duration = 500
                             objectAnimator2.repeatCount = 0
                             objectAnimator2.start()
@@ -958,7 +967,7 @@ class MathActivity : AppCompatActivity() {
             }
             4 -> {
                 if(num_a > num_b){
-                    undertile[num_b-1].setTranslationY(-30.0f)
+                    undertile[num_b-1].setTranslationY(AnimationFun(4,2))
                     when(num_b){
                         2 -> {
                             undertile[num_b-1].setBackgroundResource(R.drawable.wakusen2)
@@ -972,7 +981,7 @@ class MathActivity : AppCompatActivity() {
                 }else{
                     var blank = 5 - num_b
                     for(i in 1..blank) {
-                        uptile[i-1].setTranslationY(30.0f)
+                        uptile[i-1].setTranslationY(AnimationFun(4,1))
                         undertile[i+num_b-1].setVisibility(View.VISIBLE)
                     }
                 }
@@ -980,7 +989,7 @@ class MathActivity : AppCompatActivity() {
             5 -> {
                 if(userClickBtn == 1){
                     if(num_a > num_b){
-                        var objectAnimator = ObjectAnimator.ofFloat(undertile[num_b-1], "translationY", (-318 - (5 - num_b) * 28.5).toFloat())
+                        var objectAnimator = ObjectAnimator.ofFloat(undertile[num_b-1], "translationY", AnimationFun(4,3))
                         objectAnimator.duration = 500
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
@@ -988,7 +997,7 @@ class MathActivity : AppCompatActivity() {
                     }else{
                         var blank = 5 - num_b
                         for(i in 1..blank){
-                            var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", (322 - 30 * num_b).toFloat())
+                            var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(4,4))
                             objectAnimator2.duration = 500
                             objectAnimator2.repeatCount = 0
                             objectAnimator2.start()
@@ -1005,7 +1014,7 @@ class MathActivity : AppCompatActivity() {
                 uptile[9].setVisibility(View.INVISIBLE)
                 undertile[9].setVisibility(View.INVISIBLE)
                 if(num_a > num_b){
-                    undertile[num_b-1].setTranslationY((-318 - (5 - num_b) * 28.5).toFloat())     //上の対応するタイルまで移動後残りのタイル分移動する
+                    undertile[num_b-1].setTranslationY(AnimationFun(4,3))     //上の対応するタイルまで移動後残りのタイル分移動する
                     when(num_b){
                         2 -> {
                             undertile[num_b-1].setBackgroundResource(R.drawable.wakusen)
@@ -1019,7 +1028,7 @@ class MathActivity : AppCompatActivity() {
                 }else{
                     var blank = 5 - num_b
                     for(i in 1..blank) {
-                        uptile[i-1].setTranslationY((322 - 30 * num_b).toFloat())
+                        uptile[i-1].setTranslationY(AnimationFun(4,4))
                         undertile[i+num_b-1].setVisibility(View.INVISIBLE)
                     }
                 }
@@ -1061,14 +1070,14 @@ class MathActivity : AppCompatActivity() {
             8 -> {
                 if(userClickBtn == 1){
                     if(num_a > num_b){
-                        var objectAnimator3 = ObjectAnimator.ofFloat(uptile[9], "translationY", (322 - 30.0 * (num_b - 1)).toFloat())
+                        var objectAnimator3 = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(4,5))
                         objectAnimator3.duration = 500
                         objectAnimator3.repeatCount = 0
                         objectAnimator3.start()
                     }else{
                         var nextmovetile = 5 - num_b    //上側が失ったタイルの数
                         for(i in (1 + nextmovetile)..num_a){    //上側が動かすタイル
-                            var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", (322 - 30.0 * (num_b)).toFloat())
+                            var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(4,6))
                             objectAnimator4.duration = 500
                             objectAnimator4.repeatCount = 0
                             objectAnimator4.start()
@@ -1078,11 +1087,11 @@ class MathActivity : AppCompatActivity() {
                 }else{
                     button11.setEnabled(true)
                     if(num_a > num_b){
-                        uptile[9].setTranslationY(0.0f)
+                        uptile[9].setTranslationY(AnimationFun(4,7))
                     }else{
                         var nextmovetile = 5 - num_b    //上側が失ったタイルの数
                         for(i in (1 + nextmovetile)..num_a) {    //上側が動かすタイル
-                            uptile[i-1].setTranslationY(0.0f)
+                            uptile[i-1].setTranslationY(AnimationFun(4,7))
                         }
                     }
                     HintPlus4(2)
@@ -1142,26 +1151,26 @@ class MathActivity : AppCompatActivity() {
             2 -> {
                 if(userClickBtn == 1){
                     if(num_a == 0){
-                        var objectAnimator = ObjectAnimator.ofFloat(up_zero, "translationY", 302.5f)
+                        var objectAnimator = ObjectAnimator.ofFloat(up_zero, "translationY", AnimationFun(5,1))
                         objectAnimator.duration = 500
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
                     }else{
                         if(num_a < 5){
                             for(i in 1..num_a){
-                                var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 302.5f)
+                                var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(5,1))
                                 objectAnimator2.duration = 500
                                 objectAnimator2.repeatCount = 0
                                 objectAnimator2.start()
                             }
                         }else{
-                            var objectAnimator3 = ObjectAnimator.ofFloat(uptile[9], "translationY", 302.5f)
+                            var objectAnimator3 = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(5,1))
                             objectAnimator3.duration = 500
                             objectAnimator3.repeatCount = 0
                             objectAnimator3.start()
                             if(num_a > 5){
                                 for(i in 6..num_a){
-                                    var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 302.5f)
+                                    var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(5,1))
                                     objectAnimator4.duration = 500
                                     objectAnimator4.repeatCount = 0
                                     objectAnimator4.start()
@@ -1251,7 +1260,7 @@ class MathActivity : AppCompatActivity() {
             4 -> {      //タイル移動するアニメーション
                 if(userClickBtn == 1){
                     for(i in 1..num_b){
-                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 30.0f)
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(6,1))
                         objectAnimator.duration = 500
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
@@ -1264,7 +1273,7 @@ class MathActivity : AppCompatActivity() {
             }
             5 -> {      //移動後のタイル配置
                 for(i in 1..num_b){
-                    uptile[i-1].setTranslationY(30.0f)
+                    uptile[i-1].setTranslationY(AnimationFun(6,1))
                     uptile[i-1].setVisibility(View.VISIBLE)
                     undertile[i-1].setVisibility(View.VISIBLE)
                 }
@@ -1276,7 +1285,7 @@ class MathActivity : AppCompatActivity() {
                         undertile[i-1].setVisibility(View.INVISIBLE)
                     }
                     for(i in 1..num_b){
-                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 302.5f)
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(6,2))
                         objectAnimator.duration = 500
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
@@ -1340,13 +1349,13 @@ class MathActivity : AppCompatActivity() {
             2 -> {      //タイル移動アニメーション(少しずれる動作)
                 if(userClickBtn == 1){
                     if(num_b == 5){
-                        var objectAnimator = ObjectAnimator.ofFloat(uptile[9], "translationY", 30.0f)
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(7,1))
                         objectAnimator.duration = 500
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
                     }else{
                         for(i in 6..num_a){
-                            var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", -30.0f)
+                            var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(7,2))
                             objectAnimator2.duration = 500
                             objectAnimator2.repeatCount = 0
                             objectAnimator2.start()
@@ -1360,13 +1369,13 @@ class MathActivity : AppCompatActivity() {
             }
             3 -> {      //移動後のタイル配置
                 if(num_b == 5) {
-                    uptile[9].setTranslationY(30.0f)
+                    uptile[9].setTranslationY(AnimationFun(7,1))
                     uptile[9].setVisibility(View.VISIBLE)
                     undertile[9].setVisibility(View.VISIBLE)
                 }
                 else {
                     for(i in 6..num_a){
-                        uptile[i-1].setTranslationY(-30.0f)
+                        uptile[i-1].setTranslationY(AnimationFun(7,2))
                         uptile[i-1].setVisibility(View.VISIBLE)
                         undertile[i-6].setVisibility(View.VISIBLE)
                     }
@@ -1378,7 +1387,7 @@ class MathActivity : AppCompatActivity() {
                         undertile[9].startAnimation(alphaFadeout)
                         undertile[9].setVisibility(View.INVISIBLE)
 
-                        var objectAnimator3 = ObjectAnimator.ofFloat(uptile[9], "translationY", 302.5f)
+                        var objectAnimator3 = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(7,3))
                         objectAnimator3.duration = 500
                         objectAnimator3.repeatCount = 0
                         objectAnimator3.start()
@@ -1393,7 +1402,7 @@ class MathActivity : AppCompatActivity() {
                             undertile[i-1].setVisibility(View.INVISIBLE)
                         }
                         for(i in 6..num_a){
-                            var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 452.5f)
+                            var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(7,4))
                             objectAnimator4.duration = 500
                             objectAnimator4.repeatCount = 0
                             objectAnimator4.start()
@@ -1465,21 +1474,21 @@ class MathActivity : AppCompatActivity() {
             2 -> {      //タイル移動するアニメーション
                 if(userClickBtn == 1){
                     if(num_b < 5){
-                        var blank = num_a - num_b   //移動させるタイルの数
+                        blank = num_a - num_b   //移動させるタイルの数
                         for(i in (blank + 1)..(blank + num_b)){
-                            var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", -30.0f)
+                            var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(8,1))
                             objectAnimator.duration = 500
                             objectAnimator.repeatCount = 0
                             objectAnimator.start()
                         }
                     }else{
-                        var objectAnimator2 = ObjectAnimator.ofFloat(uptile[9], "translationY", 30.0f)
+                        var objectAnimator2 = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(8,2))
                         objectAnimator2.duration = 500
                         objectAnimator2.repeatCount = 0
                         objectAnimator2.start()
 
                         for(i in 6..num_b){
-                            var objectAnimator3 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 30.0f)
+                            var objectAnimator3 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(8,2))
                             objectAnimator3.duration = 500
                             objectAnimator3.repeatCount = 0
                             objectAnimator3.start()
@@ -1487,20 +1496,20 @@ class MathActivity : AppCompatActivity() {
                     }
                     HintMinus3(1)
                 }else{
-                    settingTile()
+                    resetTile()
                     HintMinus3(2)
                 }
             }
             3 -> {      //タイル移動後の配置
                 if(num_b < 5){
-                    var blank = num_a - num_b   //移動させるタイルの数
+                    blank = num_a - num_b   //移動させるタイルの数
                     for(i in (blank + 1)..(blank + num_b)){
-                        uptile[i-1].setTranslationY(-30.0f)
+                        uptile[i-1].setTranslationY(AnimationFun(8,1))
                     }
                 }else{
-                    uptile[9].setTranslationY(30.0f)
+                    uptile[9].setTranslationY(AnimationFun(8,2))
                     for(i in 6..num_b){
-                        uptile[i-1].setTranslationY(30.0f)
+                        uptile[i-1].setTranslationY(AnimationFun(8,2))
                     }
                 }
             }
@@ -1513,9 +1522,9 @@ class MathActivity : AppCompatActivity() {
                             undertile[i-1].setVisibility(View.INVISIBLE)
                         }
 
-                        var blank = num_a - num_b   //移動させるタイルの数
+                        blank = num_a - num_b   //移動させるタイルの数
                         for(i in (blank + 1)..(blank + num_b)){
-                            var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", (302.5 + blank * 30).toFloat())
+                            var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(8,3))
                             objectAnimator4.duration = 500
                             objectAnimator4.repeatCount = 0
                             objectAnimator4.start()
@@ -1535,7 +1544,7 @@ class MathActivity : AppCompatActivity() {
                         undertile[9].startAnimation(alphaFadeout)
                         undertile[9].setVisibility(View.INVISIBLE)
 
-                        var objectAnimator5 = ObjectAnimator.ofFloat(uptile[9], "translationY", 302.5f)
+                        var objectAnimator5 = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(8,4))
                         objectAnimator5.duration = 500
                         objectAnimator5.repeatCount = 0
                         objectAnimator5.start()
@@ -1545,7 +1554,7 @@ class MathActivity : AppCompatActivity() {
                         },1500)
 
                         for(i in 6..num_b){
-                            var objectAnimator6 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 302.5f)
+                            var objectAnimator6 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(8,4))
                             objectAnimator6.duration = 500
                             objectAnimator6.repeatCount = 0
                             objectAnimator6.start()
@@ -1560,7 +1569,8 @@ class MathActivity : AppCompatActivity() {
                 }else{
                     settingTile()
                     button11.setEnabled(true)
-                    hideTile(2)
+                    if(num_b < 5) hideTile(2)
+                    else hideTile(5)
                     HintMinus3(2)
                 }
             }
@@ -1628,7 +1638,7 @@ class MathActivity : AppCompatActivity() {
             4 -> {      //タイル移動アニメーション
                 if(userClickBtn == 1){
                     for(i in 1..num_b){
-                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 30.0f)
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(9,1))
                         objectAnimator.duration = 500
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
@@ -1641,14 +1651,14 @@ class MathActivity : AppCompatActivity() {
             }
             5 -> {      //タイル移動後の配置
                 for(i in 1..num_b){
-                    uptile[i-1].setTranslationY(30.0f)
+                    uptile[i-1].setTranslationY(AnimationFun(9,1))
                 }
             }
             6 -> {      //タイル移動するアニメーションとフェードアウト
                 if(userClickBtn == 1){
 
                     for(i in 1..num_b){
-                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 302.5f)
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(9,2))
                         objectAnimator.duration = 500
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
@@ -1723,20 +1733,20 @@ class MathActivity : AppCompatActivity() {
             2 -> {      //タイルを下に移動
                 if(userClickBtn == 1){
                     if(num_a >= 5){
-                        var objectAnimator = ObjectAnimator.ofFloat(uptile[9], "translationY", 302.5f)
+                        var objectAnimator = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(10,1))
                         objectAnimator.duration = 500
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
 
                         for(i in 6..num_a){
-                            var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 302.5f)
+                            var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(10,1))
                             objectAnimator2.duration = 500
                             objectAnimator2.repeatCount = 0
                             objectAnimator2.start()
                         }
                     }else{
                         for(i in 1..num_a){
-                            var objectAnimator3 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", 302.5f)
+                            var objectAnimator3 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(10,1))
                             objectAnimator3.duration = 500
                             objectAnimator3.repeatCount = 0
                             objectAnimator3.start()
@@ -1781,48 +1791,77 @@ class MathActivity : AppCompatActivity() {
         }
     }
 
-    private fun TEST (mathLevel:Int, hintLevel:Int) : Float{    //420dpi, mdpiでアニメーションの移動量を変える用の苦肉の策関数
-        var xxx = 0.toFloat()
+    private fun AnimationFun (mathLevel:Int, hintLevel:Int) : Float{    //420dpi, mdpiでアニメーションの移動量を変える用の苦肉の策関数
+        var moveTileAnime = 0.toFloat()
         if(dpi != 1){   //420dpiアニメーション
             when(mathLevel){
                 1->{    //足し算レベル1
-                    xxx = (320 -29 * num_b).toFloat()
+                    moveTileAnime = (320 -29 * num_b).toFloat()
                     if(dpi != 1) textView2.text = "true" + dpi.toString()
                     else textView2.text = "false" + dpi.toString()
                 }
                 2->{    //足し算レベル2
-                    xxx = (322 - 30 * num_b).toFloat()
+                    moveTileAnime = (322 - 30 * num_b).toFloat()
                 }
                 3->{    //足し算レベル3
-
+                    when(hintLevel){
+                        1 -> moveTileAnime = (-28.5 * (num_a-5)).toFloat()
+                        2 -> moveTileAnime = (322 - 30 * num_b).toFloat()
+                        3 -> moveTileAnime = (322 - 29.0 * (num_b + num_a - 5)).toFloat()
+                        4 -> moveTileAnime = (322 - 29.5 * num_b).toFloat()
+                    }
                 }
                 4->{    //足し算レベル4
-
+                    when(hintLevel){
+                        1 -> moveTileAnime = 30.0f
+                        2 -> moveTileAnime = -30.0f
+                        3 -> moveTileAnime = (-318 - (5 - num_b) * 28.5).toFloat()
+                        4 -> moveTileAnime = (322 - 30 * num_b).toFloat()
+                        5 -> moveTileAnime = (322 - 30.0 * (num_b - 1)).toFloat()
+                        6 -> moveTileAnime = (322 - 30.0 * (num_b)).toFloat()
+                        7 -> moveTileAnime = 0.0f
+                    }
                 }
                 5->{    //足し算レベル5
-
+                    moveTileAnime = 302.5f
                 }
                 6->{    //引き算レベル1
-
+                    when(hintLevel){
+                        1 -> moveTileAnime = 30.0f
+                        2 -> moveTileAnime = 302.5f
+                    }
                 }
                 7->{    //引き算レベル2
-
+                    when(hintLevel){
+                        1 -> moveTileAnime = 30.0f
+                        2 -> moveTileAnime = -30.0f
+                        3 -> moveTileAnime = 302.5f
+                        4 -> moveTileAnime = 452.5f
+                    }
                 }
                 8->{    //引き算レベル3
-
+                    when(hintLevel){
+                        1 -> moveTileAnime = -30.0f
+                        2 -> moveTileAnime = 30.0f
+                        3 -> moveTileAnime = (302.5 + blank * 30).toFloat()
+                        4 -> moveTileAnime = 302.5f
+                    }
                 }
                 9->{    //引き算レベル4
-
+                    when(hintLevel){
+                        1 -> moveTileAnime = 30.0f
+                        2 -> moveTileAnime = 302.5f
+                    }
                 }
                 10->{    //引き算レベル5
-
+                    moveTileAnime = 302.5f
                 }
             }
 
         }else{  //mdpiアニメーション
             when(mathLevel) {
                 1 -> {    //足し算レベル1
-                    xxx = (90 - 60 * num_b).toFloat()
+                    moveTileAnime = (90 - 60 * num_b).toFloat()
                     if (dpi != 1) textView2.text = "true" + dpi.toString()
                     else textView2.text = "false" + dpi.toString()
                 }
@@ -1856,7 +1895,7 @@ class MathActivity : AppCompatActivity() {
             }
         }
 
-        return  xxx
+        return  moveTileAnime
     }
 }
 
