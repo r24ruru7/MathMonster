@@ -1,6 +1,10 @@
 package com.example.yamato.mathmonster
 
 import android.content.Intent
+import android.media.AudioAttributes
+import android.media.AudioManager
+import android.media.SoundPool
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -12,6 +16,9 @@ import android.view.animation.TranslateAnimation
 import android.view.animation.AnimationSet
 
 class BreakActivity : AppCompatActivity() {
+
+    private lateinit var soundPool: SoundPool       //音声流すためのやつ
+    private var MonsterSound = 0    //音声ID
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +42,39 @@ class BreakActivity : AppCompatActivity() {
         result.putExtra("breakAct_false", false_count)
         result.putExtra("Timer", time_receive)
 
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {        //アンドロイドのバージョンがlolipop以前か
+            soundPool = SoundPool(2, AudioManager.STREAM_MUSIC, 0)
+        } else {
+            val attr = AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                .build()
+            soundPool = SoundPool.Builder()
+                .setAudioAttributes(attr)
+                //パラメーターはリソースの数に合わせる
+                .setMaxStreams(2)
+                .build()
+        }
+
+        MonsterSound = soundPool.load(this, R.raw.break_monster, 1)
+
         Levels(lev, m_sel, level_cnt)
+
+        //音楽のロードを確認するまでループ
+        var streamID = 0
+        do {
+            //少し待ち時間を入れる
+            try {
+                Thread.sleep(10)
+            } catch (e: InterruptedException) {
+            }
+
+            //ボリュームをゼロにして再生して戻り値をチェック
+            streamID = soundPool.play(MonsterSound, 0.0f, 0.0f, 1, 0, 1.0f)
+        } while (streamID == 0)
+        //確認
+
+        soundPool.play(MonsterSound, 1.0f, 1.0f, 0, 0, 1.0f)
 
         YARARETA()
         KURUKURU()
@@ -206,5 +245,10 @@ class BreakActivity : AppCompatActivity() {
         Handler().postDelayed(Runnable {
             breakimage.setImageDrawable(null)
         }, 4000)
+    }
+
+    override fun onDestroy() {
+        soundPool.release ()
+        super.onDestroy()
     }
 }

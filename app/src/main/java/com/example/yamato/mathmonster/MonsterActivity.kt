@@ -15,11 +15,19 @@ import android.view.animation.Animation
 import android.view.animation.AlphaAnimation
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_level.*
+import android.media.AudioAttributes
+import android.media.AudioManager
+import android.media.SoundPool
+import android.os.Build
+
+
+
 
 
 class MonsterActivity : AppCompatActivity() {
+
+    private lateinit var soundPool: SoundPool       //音声流すためのやつ
+    private var MonsterSound = 0    //音声ID
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +46,22 @@ class MonsterActivity : AppCompatActivity() {
         intent.putExtra("playlev", level_cnt)
         intent.putExtra("monsterAct_false", false_count)
         intent.putExtra("Timer", time_receive)
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {        //アンドロイドのバージョンがlolipop以前か
+            soundPool = SoundPool(2, AudioManager.STREAM_MUSIC, 0)
+        } else {
+            val attr = AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                .build()
+            soundPool = SoundPool.Builder()
+                .setAudioAttributes(attr)
+                //パラメーターはリソースの数に合わせる
+                .setMaxStreams(2)
+                .build()
+        }
+
+       MonsterSound = soundPool.load(this, R.raw.monster, 1)       //モンスター登場
 
         val rotate = RotateAnimation(
             0f,
@@ -61,6 +85,22 @@ class MonsterActivity : AppCompatActivity() {
         rotate.duration = 500 // 3000msかけてアニメーションする
         rotate2.duration = 1000
         rotate3.duration = 500
+
+        //音楽のロードを確認するまでループ
+        var streamID = 0
+        do {
+            //少し待ち時間を入れる
+            try {
+                Thread.sleep(10)
+            } catch (e: InterruptedException) {
+            }
+
+            //ボリュームをゼロにして再生して戻り値をチェック
+            streamID = soundPool.play(MonsterSound, 0.0f, 0.0f, 1, 0, 1.0f)
+        } while (streamID == 0)
+        //確認
+
+        soundPool.play(MonsterSound, 1.0f, 1.0f, 0, 0, 1.0f)
 
         subimage.startAnimation(rotate) // アニメーション適用
         Handler().postDelayed(Runnable {
@@ -201,5 +241,10 @@ class MonsterActivity : AppCompatActivity() {
 
         touchtext.startAnimation(alphaFadeout)
         return 1
+    }
+
+    override fun onDestroy() {
+        soundPool.release ()
+        super.onDestroy()
     }
 }
