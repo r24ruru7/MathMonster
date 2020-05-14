@@ -596,17 +596,5 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/zero" />
 
-    <TextView
-            android:id="@+id/textView2"
-            android:layout_width="156dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="192dp"
-            android:text="@string/test"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

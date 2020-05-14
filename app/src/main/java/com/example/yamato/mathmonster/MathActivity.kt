@@ -77,7 +77,6 @@ class MathActivity : AppCompatActivity() {
         val start = System.currentTimeMillis()  //レベルミックスの時間計測用
 
         val density = resources.displayMetrics.density
-        textView2.text = density.toString()
         dpi = density.toInt()
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {        //アンドロイドのバージョンがlolipop以前か
@@ -1925,8 +1924,7 @@ class MathActivity : AppCompatActivity() {
             when(mathLevel){
                 1->{    //足し算レベル1
                     moveTileAnime = (320 -29 * num_b).toFloat()     //上のタイルが下にどのくらい動くか
-                    if(dpi != 1) textView2.text = "true" + dpi.toString()
-                    else textView2.text = "false" + dpi.toString()
+
                 }
                 2->{    //足し算レベル2
                     moveTileAnime = (322 - 30 * num_b).toFloat()       //上のタイルが下にどのくらい動くか
@@ -1990,8 +1988,7 @@ class MathActivity : AppCompatActivity() {
             when(mathLevel) {
                 1 -> {    //足し算レベル1
                     moveTileAnime = (235 - 17 * num_b).toFloat()    //235：上の1のタイルから下の1のタイルに移動する移動量 17：タイルの配置間隔
-                    if (dpi != 1) textView2.text = "true" + dpi.toString()
-                    else textView2.text = "false" + dpi.toString()
+
                 }
                 2 -> {    //足し算レベル2
                     moveTileAnime = (235 - 17 * num_b).toFloat()       //レベル1と一緒
