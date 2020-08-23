@@ -57,6 +57,7 @@ class MathActivity : AppCompatActivity() {
 
 
     //コミット練習
+    //新PCコミットテスト
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
