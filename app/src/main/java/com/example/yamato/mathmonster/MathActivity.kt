@@ -43,6 +43,7 @@ class MathActivity : AppCompatActivity() {
     var hint_stage = 0 //ヒントの段階
     var blank = 0   //引き算ヒント3用
     var dpi = 0 //画面解像度
+    val tile_movespeed : Long = 1250 //タイルの移動速度
 
     private lateinit var soundPool: SoundPool       //音声流すためのやつ
     private var soundCorrect = 0    //音声ID
@@ -777,7 +778,7 @@ class MathActivity : AppCompatActivity() {
                     Sound(4)
                     for(i in 1..num_a){
                         var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(1, 2))  //uptileのY軸を指定された分だけ下げる
-                        objectAnimator.duration = 500   //0.5秒後
+                        objectAnimator.duration = tile_movespeed   //1.25秒後
                         objectAnimator.repeatCount = 0  //リピートしない
                         objectAnimator.start()  //実行
                     }
@@ -855,13 +856,13 @@ class MathActivity : AppCompatActivity() {
                     if(num_b == 5){
                         for(i in 1..num_a){     //移動アニメーション(詳細はHintPlus1へ)
                             var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(2,2))
-                            objectAnimator.duration = 500
+                            objectAnimator.duration = tile_movespeed
                             objectAnimator.repeatCount = 0
                             objectAnimator.start()
                         }
                     }else if(num_a == 5){
                         var objectAnimator = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(2,2))
-                        objectAnimator.duration = 500
+                        objectAnimator.duration = tile_movespeed
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
                     }
@@ -936,18 +937,18 @@ class MathActivity : AppCompatActivity() {
                     if(num_a >= 5){
                         for(i in 1..(num_a-5)){     //移動アニメーション(詳細はHintPlus1へ)
                             var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(3,2))
-                            objectAnimator.duration = 500
+                            objectAnimator.duration = tile_movespeed
                             objectAnimator.repeatCount = 0
                             objectAnimator.start()
                         }
                         var objectAnimator2 = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(3,3))
-                        objectAnimator2.duration = 500
+                        objectAnimator2.duration = tile_movespeed
                         objectAnimator2.repeatCount = 0
                         objectAnimator2.start()
                     }else {
                         for(i in 1..num_a){     //移動アニメーション(詳細はHintPlus1へ)
                             var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(3,4))
-                            objectAnimator.duration = 500
+                            objectAnimator.duration = tile_movespeed
                             objectAnimator.repeatCount = 0
                             objectAnimator.start()
                         }
@@ -1023,14 +1024,14 @@ class MathActivity : AppCompatActivity() {
                     Sound(4)
                     if(num_a > num_b){
                         var objectAnimator = ObjectAnimator.ofFloat(undertile[num_b-1], "translationY", AnimationFun(4,2))
-                        objectAnimator.duration = 500
+                        objectAnimator.duration = tile_movespeed
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
                     }else{
                         var blank = 5 - num_b
                         for(i in 1..blank){
                             var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(4,1))
-                            objectAnimator2.duration = 500
+                            objectAnimator2.duration = tile_movespeed
                             objectAnimator2.repeatCount = 0
                             objectAnimator2.start()
                         }
@@ -1067,7 +1068,7 @@ class MathActivity : AppCompatActivity() {
                     Sound(4)
                     if(num_a > num_b){
                         var objectAnimator = ObjectAnimator.ofFloat(undertile[num_b-1], "translationY", AnimationFun(4,3))
-                        objectAnimator.duration = 500
+                        objectAnimator.duration = tile_movespeed
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
                         uptile[4].startAnimation(alphaFadeout)
@@ -1075,7 +1076,7 @@ class MathActivity : AppCompatActivity() {
                         var blank = 5 - num_b
                         for(i in 1..blank){
                             var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(4,4))
-                            objectAnimator2.duration = 500
+                            objectAnimator2.duration = tile_movespeed
                             objectAnimator2.repeatCount = 0
                             objectAnimator2.start()
                             undertile[i+num_b-1].startAnimation(alphaFadeout)
@@ -1152,14 +1153,14 @@ class MathActivity : AppCompatActivity() {
                     Sound(4)
                     if(num_a > num_b){
                         var objectAnimator3 = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(4,5))
-                        objectAnimator3.duration = 500
+                        objectAnimator3.duration = tile_movespeed
                         objectAnimator3.repeatCount = 0
                         objectAnimator3.start()
                     }else{
                         var nextmovetile = 5 - num_b    //上側が失ったタイルの数
                         for(i in (1 + nextmovetile)..num_a){    //上側が動かすタイル
                             var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(4,6))
-                            objectAnimator4.duration = 500
+                            objectAnimator4.duration = tile_movespeed
                             objectAnimator4.repeatCount = 0
                             objectAnimator4.start()
                         }
@@ -1237,26 +1238,26 @@ class MathActivity : AppCompatActivity() {
                     Sound(4)
                     if(num_a == 0){
                         var objectAnimator = ObjectAnimator.ofFloat(up_zero, "translationY", AnimationFun(5,1))
-                        objectAnimator.duration = 500
+                        objectAnimator.duration = tile_movespeed
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
                     }else{
                         if(num_a < 5){
                             for(i in 1..num_a){
                                 var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(5,1))
-                                objectAnimator2.duration = 500
+                                objectAnimator2.duration = tile_movespeed
                                 objectAnimator2.repeatCount = 0
                                 objectAnimator2.start()
                             }
                         }else{
                             var objectAnimator3 = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(5,1))
-                            objectAnimator3.duration = 500
+                            objectAnimator3.duration = tile_movespeed
                             objectAnimator3.repeatCount = 0
                             objectAnimator3.start()
                             if(num_a > 5){
                                 for(i in 6..num_a){
                                     var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(5,1))
-                                    objectAnimator4.duration = 500
+                                    objectAnimator4.duration = tile_movespeed
                                     objectAnimator4.repeatCount = 0
                                     objectAnimator4.start()
                                 }
@@ -1355,7 +1356,7 @@ class MathActivity : AppCompatActivity() {
                     Sound(4)
                     for(i in 1..num_b){
                         var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(6,1))
-                        objectAnimator.duration = 500
+                        objectAnimator.duration = tile_movespeed
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
                     }
@@ -1382,7 +1383,7 @@ class MathActivity : AppCompatActivity() {
                     }
                     for(i in 1..num_b){
                         var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(6,2))
-                        objectAnimator.duration = 500
+                        objectAnimator.duration = tile_movespeed
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
                         Handler().postDelayed(Runnable {
@@ -1451,13 +1452,13 @@ class MathActivity : AppCompatActivity() {
                     Sound(4)
                     if(num_b == 5){
                         var objectAnimator = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(7,1))
-                        objectAnimator.duration = 500
+                        objectAnimator.duration = tile_movespeed
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
                     }else{
                         for(i in 6..num_a){
                             var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(7,2))
-                            objectAnimator2.duration = 500
+                            objectAnimator2.duration = tile_movespeed
                             objectAnimator2.repeatCount = 0
                             objectAnimator2.start()
                         }
@@ -1491,7 +1492,7 @@ class MathActivity : AppCompatActivity() {
                         undertile[9].setVisibility(View.INVISIBLE)
 
                         var objectAnimator3 = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(7,3))
-                        objectAnimator3.duration = 500
+                        objectAnimator3.duration = tile_movespeed
                         objectAnimator3.repeatCount = 0
                         objectAnimator3.start()
 
@@ -1507,7 +1508,7 @@ class MathActivity : AppCompatActivity() {
                         }
                         for(i in 6..num_a){
                             var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(7,4))
-                            objectAnimator4.duration = 500
+                            objectAnimator4.duration = tile_movespeed
                             objectAnimator4.repeatCount = 0
                             objectAnimator4.start()
 
@@ -1586,19 +1587,19 @@ class MathActivity : AppCompatActivity() {
                         blank = num_a - num_b   //移動させるタイルの数
                         for(i in (blank + 1)..(blank + num_b)){
                             var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(8,1))
-                            objectAnimator.duration = 500
+                            objectAnimator.duration = tile_movespeed
                             objectAnimator.repeatCount = 0
                             objectAnimator.start()
                         }
                     }else{
                         var objectAnimator2 = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(8,2))
-                        objectAnimator2.duration = 500
+                        objectAnimator2.duration = tile_movespeed
                         objectAnimator2.repeatCount = 0
                         objectAnimator2.start()
 
                         for(i in 6..num_b){
                             var objectAnimator3 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(8,2))
-                            objectAnimator3.duration = 500
+                            objectAnimator3.duration = tile_movespeed
                             objectAnimator3.repeatCount = 0
                             objectAnimator3.start()
                         }
@@ -1636,7 +1637,7 @@ class MathActivity : AppCompatActivity() {
                         blank = num_a - num_b   //移動させるタイルの数
                         for(i in (blank + 1)..(blank + num_b)){
                             var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(8,3))
-                            objectAnimator4.duration = 500
+                            objectAnimator4.duration = tile_movespeed
                             objectAnimator4.repeatCount = 0
                             objectAnimator4.start()
 
@@ -1657,7 +1658,7 @@ class MathActivity : AppCompatActivity() {
                         undertile[9].setVisibility(View.INVISIBLE)
 
                         var objectAnimator5 = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(8,4))
-                        objectAnimator5.duration = 500
+                        objectAnimator5.duration = tile_movespeed
                         objectAnimator5.repeatCount = 0
                         objectAnimator5.start()
                         Handler().postDelayed(Runnable {
@@ -1667,7 +1668,7 @@ class MathActivity : AppCompatActivity() {
 
                         for(i in 6..num_b){
                             var objectAnimator6 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(8,4))
-                            objectAnimator6.duration = 500
+                            objectAnimator6.duration = tile_movespeed
                             objectAnimator6.repeatCount = 0
                             objectAnimator6.start()
 
@@ -1758,7 +1759,7 @@ class MathActivity : AppCompatActivity() {
                     Sound(4)
                     for(i in 1..num_b){
                         var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(9,1))
-                        objectAnimator.duration = 500
+                        objectAnimator.duration = tile_movespeed
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
                     }
@@ -1779,7 +1780,7 @@ class MathActivity : AppCompatActivity() {
                     Sound(4)
                     for(i in 1..num_b){
                         var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(9,2))
-                        objectAnimator.duration = 500
+                        objectAnimator.duration = tile_movespeed
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
 
@@ -1859,20 +1860,20 @@ class MathActivity : AppCompatActivity() {
                     Sound(4)
                     if(num_a >= 5){
                         var objectAnimator = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(10,1))
-                        objectAnimator.duration = 500
+                        objectAnimator.duration = tile_movespeed
                         objectAnimator.repeatCount = 0
                         objectAnimator.start()
 
                         for(i in 6..num_a){
                             var objectAnimator2 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(10,1))
-                            objectAnimator2.duration = 500
+                            objectAnimator2.duration = tile_movespeed
                             objectAnimator2.repeatCount = 0
                             objectAnimator2.start()
                         }
                     }else{
                         for(i in 1..num_a){
                             var objectAnimator3 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(10,1))
-                            objectAnimator3.duration = 500
+                            objectAnimator3.duration = tile_movespeed
                             objectAnimator3.repeatCount = 0
                             objectAnimator3.start()
                         }
@@ -1987,64 +1988,64 @@ class MathActivity : AppCompatActivity() {
         }else{  //mdpiアニメーション
             when(mathLevel) {
                 1 -> {    //足し算レベル1
-                    moveTileAnime = (235 - 17 * num_b).toFloat()    //235：上の1のタイルから下の1のタイルに移動する移動量 17：タイルの配置間隔
+                    moveTileAnime = (304 - 27 * num_b).toFloat()    //304：上の1のタイルから下の1のタイルに移動する移動量 27：タイルの配置間隔
 
                 }
                 2 -> {    //足し算レベル2
-                    moveTileAnime = (235 - 17 * num_b).toFloat()       //レベル1と一緒
+                    moveTileAnime = (304 - 27 * num_b).toFloat()       //レベル1と一緒
                 }
                 3 -> {    //足し算レベル3
                     when(hintLevel){
-                        1 -> moveTileAnime = (-17 * (num_a-5)).toFloat()  //5のタイルを上にずらす(上が5以上)
-                        2 -> moveTileAnime = (235 - 17 * num_b).toFloat()   //下にタイルを動かす(1～4のタイル)上が5以上
-                        3 -> moveTileAnime = (235 - 17 * (num_b + num_a - 5)).toFloat()   //下にタイルを動かす(5のタイル)上が5以上
-                        4 -> moveTileAnime = (235 - 17 * num_b).toFloat()     //下にタイルを動かす(1～4のタイル)上が5未満
+                        1 -> moveTileAnime = (-27 * (num_a-5)).toFloat()  //5のタイルを上にずらす(上が5以上)
+                        2 -> moveTileAnime = (304 - 27 * num_b).toFloat()   //下にタイルを動かす(1～4のタイル)上が5以上
+                        3 -> moveTileAnime = (304 - 27 * (num_b + num_a - 5)).toFloat()   //下にタイルを動かす(5のタイル)上が5以上
+                        4 -> moveTileAnime = (304 - 27 * num_b).toFloat()     //下にタイルを動かす(1～4のタイル)上が5未満
                     }
                 }
                 4 -> {    //足し算レベル4
                     when(hintLevel){
-                        1 -> moveTileAnime = 17.0f      //上のタイルの下側を切り離す
-                        2 -> moveTileAnime = -17.0f     //下のタイルの上側を切り離す
-                        3 -> moveTileAnime = (-235 - (5 - num_b) * 17).toFloat()      //下の切り離したタイルを上のタイルに移動
-                        4 -> moveTileAnime = (235 - 17 * num_b).toFloat()           //上の切り離したタイルを下のタイルに移動
-                        5 -> moveTileAnime = (235 - 17 * (num_b - 1)).toFloat()       //上にできた5のタイルを下に移動
-                        6 -> moveTileAnime = (235 - 17 * (num_b)).toFloat()       //上に残ったタイルを下に移動
+                        1 -> moveTileAnime = 27.0f      //上のタイルの下側を切り離す
+                        2 -> moveTileAnime = -27.0f     //下のタイルの上側を切り離す
+                        3 -> moveTileAnime = (-304 - (5 - num_b) * 27).toFloat()      //下の切り離したタイルを上のタイルに移動
+                        4 -> moveTileAnime = (304 - 27 * num_b).toFloat()           //上の切り離したタイルを下のタイルに移動
+                        5 -> moveTileAnime = (304 - 27 * (num_b - 1)).toFloat()       //上にできた5のタイルを下に移動
+                        6 -> moveTileAnime = (304 - 27 * (num_b)).toFloat()       //上に残ったタイルを下に移動
                         7 -> moveTileAnime = 0.0f       //初期位置へ
                     }
                 }
                 5 -> {    //足し算レベル5
-                    moveTileAnime = 235.0f      //上のタイルを下に移動
+                    moveTileAnime = 304.0f      //上のタイルを下に移動
                 }
                 6 -> {    //引き算レベル1
                     when(hintLevel){
-                        1 -> moveTileAnime = 17.0f      //上のタイルの下側を少しずらす
-                        2 -> moveTileAnime = 235.0f     //ずらしたタイルを下に移動
+                        1 -> moveTileAnime = 27.0f      //上のタイルの下側を少しずらす
+                        2 -> moveTileAnime = 304.0f     //ずらしたタイルを下に移動
                     }
                 }
                 7 -> {    //引き算レベル2
                     when(hintLevel){
-                        1 -> moveTileAnime = 17.0f      //上のタイルの5の塊タイルを下にずらす(下が5の時)
-                        2 -> moveTileAnime = -17.0f     //上のタイルの5以上の部分を上にずらす(下が5以下の時)
-                        3 -> moveTileAnime = 235.0f     //5の塊タイルを下に移動
-                        4 -> moveTileAnime = 320.0f     //5以上のずらしたタイルを下に移動
+                        1 -> moveTileAnime = 27.0f      //上のタイルの5の塊タイルを下にずらす(下が5の時)
+                        2 -> moveTileAnime = -27.0f     //上のタイルの5以上の部分を上にずらす(下が5以下の時)
+                        3 -> moveTileAnime = 304.0f     //5の塊タイルを下に移動
+                        4 -> moveTileAnime = 442.0f     //5以上のずらしたタイルを下に移動
                     }
                 }
                 8 -> {    //引き算レベル3
                     when(hintLevel){
-                        1 -> moveTileAnime = -17.0f     //上のタイルの5以上の部分をずらす(下が5未満)
-                        2 -> moveTileAnime = 17.0f      //上のタイルの5の塊と必要な分を下にずらす(下が5以上)
-                        3 -> moveTileAnime = (235 + blank * 17).toFloat()     //5以上のずらしたタイルを下に移動(下が未満)
-                        4 -> moveTileAnime = 235.0f     //上の5の塊と必要な分を下に移動(下が5以上)
+                        1 -> moveTileAnime = -27.0f     //上のタイルの5以上の部分をずらす(下が5未満)
+                        2 -> moveTileAnime = 27.0f      //上のタイルの5の塊と必要な分を下にずらす(下が5以上)
+                        3 -> moveTileAnime = (304 + blank * 27).toFloat()     //5以上のずらしたタイルを下に移動(下が未満)
+                        4 -> moveTileAnime = 304.0f     //上の5の塊と必要な分を下に移動(下が5以上)
                     }
                 }
                 9 -> {    //引き算レベル4
                     when(hintLevel){
-                        1 -> moveTileAnime = 17.0f      //上のタイルの下側をずらす
-                        2 -> moveTileAnime = 235.0f     //ずらしたタイルを下に移動
+                        1 -> moveTileAnime = 27.0f      //上のタイルの下側をずらす
+                        2 -> moveTileAnime = 304.0f     //ずらしたタイルを下に移動
                     }
                 }
                 10 -> {    //引き算レベル5
-                    moveTileAnime = 235.0f      //上のタイルを下に移動
+                    moveTileAnime = 304.0f      //上のタイルを下に移動
                 }
             }
         }
