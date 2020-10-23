@@ -2054,8 +2054,8 @@ class MathActivity : AppCompatActivity() {
         return  moveTileAnime
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
         soundPool.release ()
-        super.onDestroy()
+        super.onPause()
     }
 }
