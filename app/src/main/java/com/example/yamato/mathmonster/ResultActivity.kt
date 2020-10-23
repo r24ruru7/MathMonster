@@ -82,8 +82,8 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
         soundPool.release ()
-        super.onDestroy()
+        super.onPause()
     }
 }

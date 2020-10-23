@@ -247,8 +247,8 @@ class BreakActivity : AppCompatActivity() {
         }, 4000)
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
         soundPool.release ()
-        super.onDestroy()
+        super.onPause()
     }
 }
