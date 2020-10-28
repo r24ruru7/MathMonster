@@ -44,7 +44,7 @@ class ResultActivity : AppCompatActivity() {
                 .build()
         }
 
-        GreatSound = soundPool.load(this, R.raw.break_monster, 1)
+        GreatSound = soundPool.load(this, R.raw.mix_clear, 1)
 
         //音楽のロードを確認するまでループ
         var streamID = 0
