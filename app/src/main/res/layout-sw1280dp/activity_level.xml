@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#90EE90"
+        tools:context=".LevelActivity">
+
+    <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="61dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="8dp"
+            android:background="#90EE90"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back" />
+
+    <TextView
+            android:id="@+id/choice_math"
+            android:layout_width="411dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="64dp"
+            android:gravity="center_horizontal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+            android:id="@+id/lev1"
+            android:layout_width="150dp"
+            android:layout_height="111dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="128dp"
+            android:background="@drawable/button_background"
+            android:text="@string/level1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toTopOf="@+id/lev3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.573" />
+
+    <Button
+            android:id="@+id/lev2"
+            android:layout_width="150dp"
+            android:layout_height="111dp"
+            android:layout_marginTop="128dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginRight="28dp"
+            android:background="@drawable/button_background"
+            android:text="@string/level2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toTopOf="@+id/lev4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.54" />
+
+    <Button
+            android:id="@+id/lev3"
+            android:layout_width="150dp"
+            android:layout_height="111dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginBottom="28dp"
+            android:background="@drawable/button_background"
+            android:text="@string/level3"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toTopOf="@+id/lev5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+            android:id="@+id/lev4"
+            android:layout_width="150dp"
+            android:layout_height="111dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginBottom="28dp"
+            android:background="@drawable/button_background"
+            android:text="@string/level4"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toTopOf="@+id/levmix"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+            android:id="@+id/lev5"
+            android:layout_width="150dp"
+            android:layout_height="111dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginBottom="52dp"
+            android:background="@drawable/button_background"
+            android:text="@string/level5"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+            android:id="@+id/levmix"
+            android:layout_width="150dp"
+            android:layout_height="111dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginBottom="52dp"
+            android:background="@drawable/button_background"
+            android:text="@string/levelmix"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

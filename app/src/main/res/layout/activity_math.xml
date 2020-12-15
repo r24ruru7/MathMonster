@@ -340,7 +340,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -352,7 +352,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen2"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -364,7 +364,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -376,7 +376,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen2"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -388,7 +388,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -400,7 +400,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen2"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -412,7 +412,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -424,7 +424,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen2"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -436,7 +436,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen2"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -448,7 +448,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -460,7 +460,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen2"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -472,7 +472,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -484,7 +484,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen2"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -496,7 +496,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -508,7 +508,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen2"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -520,7 +520,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -532,7 +532,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen2"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -544,7 +544,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen2"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -556,7 +556,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -568,7 +568,7 @@
             android:layout_marginEnd="76dp"
             android:layout_marginRight="76dp"
             android:background="@drawable/wakusen"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -595,6 +595,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/zero" />
+
+    <TextView
+            android:id="@+id/dpiText"
+            android:layout_width="102dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginBottom="68dp"
+            android:text="default"
+            android:textSize="24sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/button1"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

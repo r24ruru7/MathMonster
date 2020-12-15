@@ -81,6 +81,7 @@ class MathActivity : AppCompatActivity() {
         val density = resources.displayMetrics.density
         dpi = density.toInt()
 
+
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {        //アンドロイドのバージョンがlolipop以前か
             //1個目のパラメーターはリソースの数に合わせる
             soundPool = SoundPool(2, AudioManager.STREAM_MUSIC, 0)
@@ -1379,10 +1380,6 @@ class MathActivity : AppCompatActivity() {
                 if(userClickBtn == 1){
                     Sound(4)
                     for(i in 1..num_b){
-                        undertile[i-1].startAnimation(alphaFadeout)
-                        undertile[i-1].setVisibility(View.INVISIBLE)
-                    }
-                    for(i in 1..num_b){
                         var objectAnimator = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(6,2))
                         objectAnimator.duration = tile_movespeed
                         objectAnimator.repeatCount = 0
@@ -1390,6 +1387,10 @@ class MathActivity : AppCompatActivity() {
                         Handler().postDelayed(Runnable {
                             uptile[i-1].startAnimation(alphaFadeout)
                             uptile[i-1].setVisibility(View.INVISIBLE)
+                            for(i in 1..num_b){
+                                undertile[i-1].startAnimation(alphaFadeout)
+                                undertile[i-1].setVisibility(View.INVISIBLE)
+                            }
                         },1500)
                     }
                     Handler().postDelayed({Sound(6)}, 1500)
@@ -1489,9 +1490,6 @@ class MathActivity : AppCompatActivity() {
                 if(userClickBtn == 1){
                     Sound(4)
                     if(num_b == 5){
-                        undertile[9].startAnimation(alphaFadeout)
-                        undertile[9].setVisibility(View.INVISIBLE)
-
                         var objectAnimator3 = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(7,3))
                         objectAnimator3.duration = tile_movespeed
                         objectAnimator3.repeatCount = 0
@@ -1501,12 +1499,10 @@ class MathActivity : AppCompatActivity() {
                             Sound(6)
                             uptile[9].startAnimation(alphaFadeout)
                             uptile[9].setVisibility(View.INVISIBLE)
+                            undertile[9].startAnimation(alphaFadeout)
+                            undertile[9].setVisibility(View.INVISIBLE)
                         },1500)
                     }else{
-                        for(i in 1..num_b){
-                            undertile[i-1].startAnimation(alphaFadeout)
-                            undertile[i-1].setVisibility(View.INVISIBLE)
-                        }
                         for(i in 6..num_a){
                             var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(7,4))
                             objectAnimator4.duration = tile_movespeed
@@ -1516,6 +1512,10 @@ class MathActivity : AppCompatActivity() {
                             Handler().postDelayed(Runnable {
                                 uptile[i-1].startAnimation(alphaFadeout)
                                 uptile[i-1].setVisibility(View.INVISIBLE)
+                                for(i in 1..num_b){
+                                    undertile[i-1].startAnimation(alphaFadeout)
+                                    undertile[i-1].setVisibility(View.INVISIBLE)
+                                }
                             },1500)
                         }
                         Handler().postDelayed({Sound(6)},1500)
@@ -1629,12 +1629,6 @@ class MathActivity : AppCompatActivity() {
                 if(userClickBtn == 1){
                     Sound(4)
                     if(num_b < 5){
-
-                        for(i in 1..num_b){
-                            undertile[i-1].startAnimation(alphaFadeout)
-                            undertile[i-1].setVisibility(View.INVISIBLE)
-                        }
-
                         blank = num_a - num_b   //移動させるタイルの数
                         for(i in (blank + 1)..(blank + num_b)){
                             var objectAnimator4 = ObjectAnimator.ofFloat(uptile[i-1], "translationY", AnimationFun(8,3))
@@ -1645,19 +1639,14 @@ class MathActivity : AppCompatActivity() {
                             Handler().postDelayed(Runnable {
                                 uptile[i-1].startAnimation(alphaFadeout)
                                 uptile[i-1].setVisibility(View.INVISIBLE)
+                                for(i in 1..num_b){
+                                    undertile[i-1].startAnimation(alphaFadeout)
+                                    undertile[i-1].setVisibility(View.INVISIBLE)
+                                }
                             },1500)
                         }
                         Handler().postDelayed({Sound(6)}, 1500)
                     }else{
-
-                        for(i in 6..num_b){
-                            undertile[i-1].startAnimation(alphaFadeout)
-                            undertile[i-1].setVisibility(View.INVISIBLE)
-                        }
-
-                        undertile[9].startAnimation(alphaFadeout)
-                        undertile[9].setVisibility(View.INVISIBLE)
-
                         var objectAnimator5 = ObjectAnimator.ofFloat(uptile[9], "translationY", AnimationFun(8,4))
                         objectAnimator5.duration = tile_movespeed
                         objectAnimator5.repeatCount = 0
@@ -1665,6 +1654,12 @@ class MathActivity : AppCompatActivity() {
                         Handler().postDelayed(Runnable {
                             uptile[9].startAnimation(alphaFadeout)
                             uptile[9].setVisibility(View.INVISIBLE)
+                            for(i in 6..num_b){
+                                undertile[i-1].startAnimation(alphaFadeout)
+                                undertile[i-1].setVisibility(View.INVISIBLE)
+                            }
+                            undertile[9].startAnimation(alphaFadeout)
+                            undertile[9].setVisibility(View.INVISIBLE)
                         },1500)
 
                         for(i in 6..num_b){
@@ -1788,10 +1783,9 @@ class MathActivity : AppCompatActivity() {
                         Handler().postDelayed(Runnable {
                             uptile[i-1].startAnimation(alphaFadeout)
                             uptile[i-1].setVisibility(View.INVISIBLE)
+                            undertile[i-1].startAnimation(alphaFadeout)
+                            undertile[i-1].setVisibility(View.INVISIBLE)
                         },1500)
-
-                        undertile[i-1].startAnimation(alphaFadeout)
-                        undertile[i-1].setVisibility(View.INVISIBLE)
                     }
                     Handler().postDelayed({Sound(6)}, 1500)
                     HintMinus4(1)
@@ -1880,15 +1874,15 @@ class MathActivity : AppCompatActivity() {
                         }
                     }
                     if(num_b != 0){
-                        for(i in 1..num_b){
-                            undertile[i-1].startAnimation(alphaFadeout)
-                            undertile[i-1].setVisibility(View.INVISIBLE)
-                        }
                         if(num_a >= 5){
                             Handler().postDelayed(Runnable {
                                 Sound(6)
                                 uptile[9].startAnimation(alphaFadeout)
                                 uptile[9].setVisibility(View.INVISIBLE)
+                                for(i in 1..num_b){
+                                    undertile[i-1].startAnimation(alphaFadeout)
+                                    undertile[i-1].setVisibility(View.INVISIBLE)
+                                }
                             },1500)
 
                             for(i in 6..num_a){
@@ -1902,6 +1896,10 @@ class MathActivity : AppCompatActivity() {
                                 Handler().postDelayed(Runnable {
                                     uptile[i-1].startAnimation(alphaFadeout)
                                     uptile[i-1].setVisibility(View.INVISIBLE)
+                                    for(i in 1..num_b){
+                                        undertile[i-1].startAnimation(alphaFadeout)
+                                        undertile[i-1].setVisibility(View.INVISIBLE)
+                                    }
                                 },1500)
                             }
                             Handler().postDelayed({Sound(6)}, 1500)
@@ -1922,7 +1920,10 @@ class MathActivity : AppCompatActivity() {
 
     private fun AnimationFun (mathLevel:Int, hintLevel:Int) : Float{    //420dpi, mdpiでアニメーションの移動量を変える用の苦肉の策関数
         var moveTileAnime = 0.toFloat()
-        if(dpi != 1){   //420dpiアニメーション
+
+        var dText :String = dpiText.text.toString()
+
+        if(dText == "default"){   //420dpiアニメーション
             when(mathLevel){
                 1->{    //足し算レベル1
                     moveTileAnime = (320 -29 * num_b).toFloat()     //上のタイルが下にどのくらい動くか
@@ -1986,7 +1987,71 @@ class MathActivity : AppCompatActivity() {
                 }
             }
 
-        }else{  //mdpiアニメーション
+        }else if(dText == "600"){  //sw600dpiアニメーション (解像度の倍率がmdpiの２倍、そのため dp × ２ の値を入力する)
+            when(mathLevel) {
+                1 -> {    //足し算レベル1
+                    moveTileAnime = (400 - 32 * num_b).toFloat()    //200dp移動後、上に16dpずらす
+
+                }
+                2 -> {    //足し算レベル2
+                    moveTileAnime = (400 - 32 * num_b).toFloat()       //レベル1と一緒
+                }
+                3 -> {    //足し算レベル3
+                    when(hintLevel){
+                        1 -> moveTileAnime = (-32 * (num_a - 5)).toFloat()  //5のタイルを上にずらす(上が5以上)
+                        2 -> moveTileAnime = (400 - 32 * num_b).toFloat()   //下にタイルを動かす(1～4のタイル)上が5以上
+                        3 -> moveTileAnime = (400 - 32 * (num_b + num_a - 5)).toFloat()   //下にタイルを動かす(5のタイル)上が5以上
+                        4 -> moveTileAnime = (400 - 32 * num_b).toFloat()     //下にタイルを動かす(1～4のタイル)上が5未満
+                    }
+                }
+                4 -> {    //足し算レベル4
+                    when(hintLevel){
+                        1 -> moveTileAnime = 32.0f      //上のタイルの下側を切り離す
+                        2 -> moveTileAnime = -32.0f     //下のタイルの上側を切り離す
+                        3 -> moveTileAnime = (-400 - (5 - num_b) * 32).toFloat()      //下の切り離したタイルを上のタイルに移動
+                        4 -> moveTileAnime = (400 - 32 * num_b).toFloat()           //上の切り離したタイルを下のタイルに移動
+                        5 -> moveTileAnime = (400 - 32 * (num_b - 1)).toFloat()       //上にできた5のタイルを下に移動
+                        6 -> moveTileAnime = (400 - 32 * (num_b)).toFloat()       //上に残ったタイルを下に移動
+                        7 -> moveTileAnime = 0.0f       //初期位置へ
+                    }
+                }
+                5 -> {    //足し算レベル5
+                    moveTileAnime = 400.0f      //上のタイルを下に移動
+                }
+                6 -> {    //引き算レベル1
+                    when(hintLevel){
+                        1 -> moveTileAnime = 32f      //上のタイルの下側を少しずらす
+                        2 -> moveTileAnime = 400.0f     //ずらしたタイルを下に移動
+                    }
+                }
+                7 -> {    //引き算レベル2
+                    when(hintLevel){
+                        1 -> moveTileAnime = 32.0f      //上のタイルの5の塊タイルを下にずらす(下が5の時)
+                        2 -> moveTileAnime = -32.0f     //上のタイルの5以上の部分を上にずらす(下が5以下の時)
+                        3 -> moveTileAnime = 400.0f     //5の塊タイルを下に移動
+                        4 -> moveTileAnime = 560.0f     //5以上のずらしたタイルを下に移動
+                    }
+                }
+                8 -> {    //引き算レベル3
+                    when(hintLevel){
+                        1 -> moveTileAnime = -32.0f     //上のタイルの5以上の部分をずらす(下が5未満)
+                        2 -> moveTileAnime = 32.0f      //上のタイルの5の塊と必要な分を下にずらす(下が5以上)
+                        3 -> moveTileAnime = (400 + blank * 32).toFloat()     //5以上のずらしたタイルを下に移動(下が未満)
+                        4 -> moveTileAnime = 400.0f     //上の5の塊と必要な分を下に移動(下が5以上)
+                    }
+                }
+                9 -> {    //引き算レベル4
+                    when(hintLevel){
+                        1 -> moveTileAnime = 32.0f      //上のタイルの下側をずらす
+                        2 -> moveTileAnime = 400.0f     //ずらしたタイルを下に移動
+                    }
+                }
+                10 -> {    //引き算レベル5
+                    moveTileAnime = 400.0f      //上のタイルを下に移動
+                }
+            }
+        }
+        else{  //mdpiアニメーション
             when(mathLevel) {
                 1 -> {    //足し算レベル1
                     moveTileAnime = (304 - 27 * num_b).toFloat()    //304：上の1のタイルから下の1のタイルに移動する移動量 27：タイルの配置間隔
