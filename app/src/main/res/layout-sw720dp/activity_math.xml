@@ -375,126 +375,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/zero" />
 
-    <TextView
-            android:id="@+id/up_tile1"
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="344dp"
-            android:layout_marginEnd="140dp"
-            android:layout_marginRight="140dp"
-            android:background="@drawable/wakusen"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-            android:id="@+id/up_tile2"
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="317dp"
-            android:layout_marginEnd="140dp"
-            android:layout_marginRight="140dp"
-            android:background="@drawable/wakusen2"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-            android:id="@+id/up_tile3"
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="290dp"
-            android:layout_marginEnd="140dp"
-            android:layout_marginRight="140dp"
-            android:background="@drawable/wakusen"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-            android:id="@+id/up_tile4"
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="263dp"
-            android:layout_marginEnd="140dp"
-            android:layout_marginRight="140dp"
-            android:background="@drawable/wakusen2"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-            android:id="@+id/up_tile5"
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="236dp"
-            android:layout_marginEnd="140dp"
-            android:layout_marginRight="140dp"
-            android:background="@drawable/wakusen"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-            android:id="@+id/up_tile6"
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="209dp"
-            android:layout_marginEnd="140dp"
-            android:layout_marginRight="140dp"
-            android:background="@drawable/wakusen2"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-            android:id="@+id/up_tile7"
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="182dp"
-            android:layout_marginEnd="140dp"
-            android:layout_marginRight="140dp"
-            android:background="@drawable/wakusen"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-            android:id="@+id/up_tile8"
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="155dp"
-            android:layout_marginEnd="140dp"
-            android:layout_marginRight="140dp"
-            android:background="@drawable/wakusen2"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-            android:id="@+id/up_tile9"
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="128dp"
-            android:layout_marginEnd="140dp"
-            android:layout_marginRight="140dp"
-            android:background="@drawable/wakusen2"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-            android:id="@+id/up_tile5_2"
-            android:layout_width="35dp"
-            android:layout_height="138dp"
-            android:layout_marginTop="236dp"
-            android:layout_marginEnd="140dp"
-            android:layout_marginRight="140dp"
-            android:background="@drawable/wakusen"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
             android:id="@+id/under_zero"
             android:layout_width="52dp"
@@ -620,6 +500,126 @@
             android:layout_width="35dp"
             android:layout_height="138dp"
             android:layout_marginTop="540dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginRight="140dp"
+            android:background="@drawable/wakusen"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/up_tile1"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="344dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginRight="140dp"
+            android:background="@drawable/wakusen"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/up_tile2"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="317dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginRight="140dp"
+            android:background="@drawable/wakusen2"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/up_tile3"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="290dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginRight="140dp"
+            android:background="@drawable/wakusen"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/up_tile4"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="263dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginRight="140dp"
+            android:background="@drawable/wakusen2"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/up_tile5"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="236dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginRight="140dp"
+            android:background="@drawable/wakusen"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/up_tile6"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="209dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginRight="140dp"
+            android:background="@drawable/wakusen2"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/up_tile7"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="182dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginRight="140dp"
+            android:background="@drawable/wakusen"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/up_tile8"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="155dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginRight="140dp"
+            android:background="@drawable/wakusen2"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/up_tile9"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="128dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginRight="140dp"
+            android:background="@drawable/wakusen2"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/up_tile5_2"
+            android:layout_width="35dp"
+            android:layout_height="138dp"
+            android:layout_marginTop="236dp"
             android:layout_marginEnd="140dp"
             android:layout_marginRight="140dp"
             android:background="@drawable/wakusen"
