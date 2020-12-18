@@ -4,13 +4,12 @@
 
     <application
             android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/nocarry_monster"
             android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
+            android:roundIcon="@mipmap/nocarry_monster_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".ResultActivity"></activity>
-        <activity android:name=".ReaultActivity" />
         <activity android:name=".BreakActivity" />
         <activity android:name=".MathActivity" />
         <activity android:name=".MonsterActivity" />
